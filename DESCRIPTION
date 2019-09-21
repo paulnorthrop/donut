@@ -1,0 +1,23 @@
+Package: donut
+Title: Nearest Neighbour Search with Variables on a Torus
+Version: 1.0.0.9000
+Date: 2019-09-21
+Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
+  role = c("aut", "cre", "cph"))
+Description: Add description
+Imports: graphics,
+    methods,
+    RANN
+License: GPL (>= 2)
+LazyData: TRUE
+Encoding: UTF-8
+Depends:
+    R (>= 3.3.0)
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 2.1.0)
+VignetteBuilder: knitr
+URL: http://github.com/paulnorthrop/lex
+BugReports: http://github.com/paulnorthrop/lex/issues
