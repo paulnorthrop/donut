@@ -6,8 +6,7 @@ Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
   role = c("aut", "cre", "cph"))
 Description: Add description
 Imports: graphics,
-    methods,
-    RANN
+    methods
 License: GPL (>= 2)
 LazyData: TRUE
 Encoding: UTF-8
@@ -16,8 +15,11 @@ Depends:
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
+    nabor,
+    RANN,
+    RANN.L1,
     rmarkdown,
     testthat (>= 2.1.0)
 VignetteBuilder: knitr
-URL: http://github.com/paulnorthrop/lex
-BugReports: http://github.com/paulnorthrop/lex/issues
+URL: http://github.com/paulnorthrop/donut
+BugReports: http://github.com/paulnorthrop/donut/issues
