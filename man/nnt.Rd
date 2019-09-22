@@ -20,14 +20,15 @@ points in the rows of \code{query}, to find.}
 
 \item{torus}{An integer vector with element in
 \{1, ..., \code{ncol(data)}\}.  If \code{torus} is missing then
-a call to \code{nn2torus} is equivalent to a call to
-\code{\link[RANN]{nn2}}.}
+a call to \code{nnt} is equivalent to a call to the function chosen
+by \code{package}.}
 
 \item{ranges}{A \code{length(torus)} by \code{2} numeric matrix.
-If \code{length(torus)}=2 then \code{ranges} may be a vector of length 2.
 Row \code{i} gives the range of variation of the variable indexed by
 \code{torus[i]}. \code{ranges[i, 1]} and \code{ranges[i, 2]}
-are equivalent values of the variable, such as 0 degrees and 360 degrees.}
+are equivalent values of the variable, such as 0 degrees and 360 degrees.
+If \code{length(torus)} = 2 then \code{ranges} may be a vector of length
+2.}
 
 \item{package}{The package to use calculate the nearest neighbours.
 One of \code{"RANN"}, \code{"RANN.L1"} or \code{"nabor"}.}
@@ -55,8 +56,15 @@ x2 <- runif(100, 0, 3)
 DATA <- data.frame(x1, x2)
 nearest <- nnt(DATA, DATA)
 
-# Now suppose that x1 is should be wrapped
+# Suppose that x1 should be wrapped
 ranges <- matrix(c(0, 2 * pi), 1, 2)
+nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
+edge <- matrix(c(2 * pi, 1.5), 1, 2)
+res <- nnt(DATA, edge, torus = 1, ranges = ranges)
+plot(res, pch = 16)
+
+# Suppose that x1 and x2 should be wrapped
+ranges <- rbind(c(0, 2 * pi), c(0, 3))
 nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
 edge <- matrix(c(2 * pi, 1.5), 1, 2)
 res <- nnt(DATA, edge, torus = 1, ranges = ranges)

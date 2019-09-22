@@ -14,13 +14,14 @@
 #'   points in the rows of \code{query}, to find.
 #' @param torus An integer vector with element in
 #'   \{1, ..., \code{ncol(data)}\}.  If \code{torus} is missing then
-#'   a call to \code{nn2torus} is equivalent to a call to
-#'   \code{\link[RANN]{nn2}}.
+#'   a call to \code{nnt} is equivalent to a call to the function chosen
+#'   by \code{package}.
 #' @param ranges A \code{length(torus)} by \code{2} numeric matrix.
-#'   If \code{length(torus)}=2 then \code{ranges} may be a vector of length 2.
 #'   Row \code{i} gives the range of variation of the variable indexed by
 #'   \code{torus[i]}. \code{ranges[i, 1]} and \code{ranges[i, 2]}
 #'   are equivalent values of the variable, such as 0 degrees and 360 degrees.
+#'   If \code{length(torus)} = 2 then \code{ranges} may be a vector of length
+#'   2.
 #' @param package The package to use calculate the nearest neighbours.
 #'   One of \code{"RANN"}, \code{"RANN.L1"} or \code{"nabor"}.
 #' @param ... Further arguments to be passed to
@@ -40,8 +41,15 @@
 #' DATA <- data.frame(x1, x2)
 #' nearest <- nnt(DATA, DATA)
 #'
-#' # Now suppose that x1 is should be wrapped
+#' # Suppose that x1 should be wrapped
 #' ranges <- matrix(c(0, 2 * pi), 1, 2)
+#' nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
+#' edge <- matrix(c(2 * pi, 1.5), 1, 2)
+#' res <- nnt(DATA, edge, torus = 1, ranges = ranges)
+#' plot(res, pch = 16)
+#'
+#' # Suppose that x1 and x2 should be wrapped
+#' ranges <- rbind(c(0, 2 * pi), c(0, 3))
 #' nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
 #' edge <- matrix(c(2 * pi, 1.5), 1, 2)
 #' res <- nnt(DATA, edge, torus = 1, ranges = ranges)
@@ -61,11 +69,12 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
   if (!requireNamespace(package, quietly = TRUE)) {
     stop("Package ", package, "is not installed", call. = FALSE)
   }
-  print(package)
+  # Set the function to be used
   which_fn <- switch(package,
                      RANN = RANN::nn2,
                      RANN.L1 = RANN.L1::nn2,
                      nabor = nabor::knn)
+  # Do the search and add data and query to the returned object
   if (missing(torus)) {
     res <- which_fn(data = data, query = query, k = k, ...)
     res <- c(res, list(data = data, query = query))
@@ -83,7 +92,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
   }
   dim_ranges <- ncol(ranges)
   if (is.null(dim_ranges)) {
-    ranges <- matrix(ranges, 1, 2)
+    dim(ranges) <- 1:2
   }
   if (!is.matrix(ranges) || ncol(ranges) != 2 ||
       nrow(ranges) != length(torus)) {
@@ -129,12 +138,8 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
     # Move the point of interest to the midpoint
     nquery <- query[j, , drop = FALSE]
     nquery[, torus] <- mids
-    # Call RANN:nn2() using the new data and the new query values
-#    print(dim(ndata))
-#    print(nquery)
-    nn2res <- RANN::nn2(data = ndata, query = nquery, k = k,
-                        treetype = treetype, searchtype = searchtype,
-                        radius = radius, eps = eps)
+    # Do the search using the new data and the new query values
+    nn2res <- which_fn(data = ndata, query = nquery, k = k, ...)
     return(nn2res)
   }
   # Call by_query() for each
