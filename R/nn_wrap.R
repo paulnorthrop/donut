@@ -5,7 +5,13 @@
 #' Uses \code{\link[RANN]{nn2}} to find the nearest neighbours in a dataset
 #' specified points, adding the option to wrap certain variables on a torus.
 #'
-#' @inheritParams RANN::nn2
+#' @param data An \eqn{M} by \eqn{d} numeric matrix or data frame.  Each of the
+#'   \eqn{M} rows contains a \eqn{d}-dimensional observation.
+#' @param query An \eqn{N} by \eqn{d} numeric matrix or data frame.  Each row
+#'   contains an \eqn{d}-dimensional point that will be queried against
+#'   \code{data}.
+#' @param k An integer scalar.  The number of nearest neighbours, of the
+#'   points in the rows of \code{query}, to find.
 #' @param torus An integer vector with element in
 #'   \{1, ..., \code{ncol(data)}\}.  If \code{torus} is missing then
 #'   a call to \code{nn2torus} is equivalent to a call to
@@ -15,40 +21,53 @@
 #'   Row \code{i} gives the range of variation of the variable indexed by
 #'   \code{torus[i]}. \code{ranges[i, 1]} and \code{ranges[i, 2]}
 #'   are equivalent values of the variable, such as 0 degrees and 360 degrees.
+#' @param package The package to use calculate the nearest neighbours.
+#'   One of \code{"RANN"}, \code{"RANN.L1"} or \code{"nabor"}.
+#' @param ... Further arguments to be passed to
+#'   \code{\link[RANN:nn2]{RANN::nn2}},
+#'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}} or
+#'   \code{\link[nabor:knn]{nabor::knn}}
 #' @details Add details
 #' @return Return
-#' @seealso \code{\link[RANN]{nn2}}: nearest neigbour search.
+#' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
+#'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
+#'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searchess.
 #' @examples
 #' set.seed(20092019)
 #' # Example from the RANN:nn2 documentation
 #' x1 <- runif(100, 0, 2*pi)
 #' x2 <- runif(100, 0, 3)
 #' DATA <- data.frame(x1, x2)
-#' nearest <- nn2torus(DATA, DATA)
+#' nearest <- nnt(DATA, DATA)
 #'
 #' # Now suppose that x1 is should be wrapped
 #' ranges <- matrix(c(0, 2 * pi), 1, 2)
-#' nearest <- nn2torus(DATA, DATA, torus = 1, ranges = ranges)
+#' nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
 #' edge <- matrix(c(2 * pi, 1.5), 1, 2)
-#' res <- nn2torus(DATA, edge, torus = 1, ranges = ranges)
+#' res <- nnt(DATA, edge, torus = 1, ranges = ranges)
 #' plot(res, pch = 16)
 #'
 #' y <- nshs[, "hs"]
 #' x <- nshs[, c("season", "direction")]
 #' query <- matrix(c(350, 0, 150, 360), 2, 2)
 #' ranges <- matrix(c(0, 0, 360, 360), 2, 2)
-#' res <- nn2torus(data = x, query = query, k = 100, torus = 1:2,
-#'                 ranges = ranges)
+#' res <- nnt(data = x, query = query, k = 100, torus = 1:2, ranges = ranges)
 #' plot(res)
 #' @export
-nn2torus <- function(data, query = data, k = min(10, nrow(data)),
-                     treetype = c("kd", "bd"),
-                     searchtype = c("standard", "priority", "radius"),
-                     radius = 0, eps = 0, torus, ranges) {
+nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
+                     package = c("RANN", "RANN.L1", "nabor"), ...) {
+  package <- match.arg(package)
+  # Check that the chosen package is available
+  if (!requireNamespace(package, quietly = TRUE)) {
+    stop("Package ", package, "is not installed", call. = FALSE)
+  }
+  print(package)
+  which_fn <- switch(package,
+                     RANN = RANN::nn2,
+                     RANN.L1 = RANN.L1::nn2,
+                     nabor = nabor::knn)
   if (missing(torus)) {
-    res <- RANN::nn2(data = data, query = query, k = k,
-                     treetype = treetype, searchtype = searchtype,
-                     radius = radius, eps = eps)
+    res <- which_fn(data = data, query = query, k = k, ...)
     res <- c(res, list(data = data, query = query))
     class(res) <- c("nn2torus")
     return(res)
