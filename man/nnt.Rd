@@ -5,7 +5,7 @@
 \title{Nearest Neighbour Search}
 \usage{
 nnt(data, query = data, k = min(10, nrow(data)), torus, ranges,
-  package = c("RANN", "RANN.L1", "nabor"), ...)
+  package = c("RANN", "RANN.L1", "nabor"), method = 1, ...)
 }
 \arguments{
 \item{data}{An \eqn{M} by \eqn{d} numeric matrix or data frame.  Each of the
@@ -33,6 +33,8 @@ If \code{length(torus)} = 2 then \code{ranges} may be a vector of length
 \item{package}{The package to use calculate the nearest neighbours.
 One of \code{"RANN"}, \code{"RANN.L1"} or \code{"nabor"}.}
 
+\item{method}{An integer scalar, equal to 1 or 2.}
+
 \item{...}{Further arguments to be passed to
 \code{\link[RANN:nn2]{RANN::nn2}},
 \code{\link[RANN.L1:nn2]{RANN.L1::nn2}} or
@@ -51,13 +53,13 @@ Add details
 \examples{
 set.seed(20092019)
 # Example from the RANN:nn2 documentation
-x1 <- runif(100, 0, 2*pi)
+x1 <- runif(100, 0, 2 * pi)
 x2 <- runif(100, 0, 3)
 DATA <- data.frame(x1, x2)
 nearest <- nnt(DATA, DATA)
 
 # Suppose that x1 should be wrapped
-ranges <- matrix(c(0, 2 * pi), 1, 2)
+ranges <- c(0, 2 * pi)
 nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
 edge <- matrix(c(2 * pi, 1.5), 1, 2)
 res <- nnt(DATA, edge, torus = 1, ranges = ranges)
@@ -65,9 +67,9 @@ plot(res, pch = 16)
 
 # Suppose that x1 and x2 should be wrapped
 ranges <- rbind(c(0, 2 * pi), c(0, 3))
-nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
-edge <- matrix(c(2 * pi, 1.5), 1, 2)
-res <- nnt(DATA, edge, torus = 1, ranges = ranges)
+nearest <- nnt(DATA, DATA[1, ], torus = 1:2, ranges = ranges)
+edge <- rbind(c(2 * pi, 1.5), c(2 * pi, 3))
+res <- nnt(DATA, edge, torus = 1:2, ranges = ranges)
 plot(res, pch = 16)
 
 y <- nshs[, "hs"]
@@ -75,6 +77,7 @@ x <- nshs[, c("season", "direction")]
 query <- matrix(c(350, 0, 150, 360), 2, 2)
 ranges <- matrix(c(0, 0, 360, 360), 2, 2)
 res <- nnt(data = x, query = query, k = 100, torus = 1:2, ranges = ranges)
+res <- nnt(data = x, query = as.matrix(x), k = 100, torus = 1:2, ranges = ranges)
 plot(res)
 }
 \seealso{

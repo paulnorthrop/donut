@@ -24,6 +24,7 @@
 #'   2.
 #' @param package The package to use calculate the nearest neighbours.
 #'   One of \code{"RANN"}, \code{"RANN.L1"} or \code{"nabor"}.
+#' @param method An integer scalar, equal to 1 or 2.
 #' @param ... Further arguments to be passed to
 #'   \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}} or
@@ -36,13 +37,13 @@
 #' @examples
 #' set.seed(20092019)
 #' # Example from the RANN:nn2 documentation
-#' x1 <- runif(100, 0, 2*pi)
+#' x1 <- runif(100, 0, 2 * pi)
 #' x2 <- runif(100, 0, 3)
 #' DATA <- data.frame(x1, x2)
 #' nearest <- nnt(DATA, DATA)
 #'
 #' # Suppose that x1 should be wrapped
-#' ranges <- matrix(c(0, 2 * pi), 1, 2)
+#' ranges <- c(0, 2 * pi)
 #' nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
 #' edge <- matrix(c(2 * pi, 1.5), 1, 2)
 #' res <- nnt(DATA, edge, torus = 1, ranges = ranges)
@@ -50,9 +51,9 @@
 #'
 #' # Suppose that x1 and x2 should be wrapped
 #' ranges <- rbind(c(0, 2 * pi), c(0, 3))
-#' nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
-#' edge <- matrix(c(2 * pi, 1.5), 1, 2)
-#' res <- nnt(DATA, edge, torus = 1, ranges = ranges)
+#' nearest <- nnt(DATA, DATA[1, ], torus = 1:2, ranges = ranges)
+#' edge <- rbind(c(2 * pi, 1.5), c(2 * pi, 3))
+#' res <- nnt(DATA, edge, torus = 1:2, ranges = ranges)
 #' plot(res, pch = 16)
 #'
 #' y <- nshs[, "hs"]
@@ -60,10 +61,12 @@
 #' query <- matrix(c(350, 0, 150, 360), 2, 2)
 #' ranges <- matrix(c(0, 0, 360, 360), 2, 2)
 #' res <- nnt(data = x, query = query, k = 100, torus = 1:2, ranges = ranges)
+#' res <- nnt(data = x, query = as.matrix(x), k = 100, torus = 1:2, ranges = ranges)
 #' plot(res)
 #' @export
 nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
-                     package = c("RANN", "RANN.L1", "nabor"), ...) {
+                     package = c("RANN", "RANN.L1", "nabor"), method = 1,
+                ...) {
   package <- match.arg(package)
   # Check that the chosen package is available
   if (!requireNamespace(package, quietly = TRUE)) {
@@ -78,7 +81,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
   if (missing(torus)) {
     res <- which_fn(data = data, query = query, k = k, ...)
     res <- c(res, list(data = data, query = query))
-    class(res) <- c("nn2torus")
+    class(res) <- c("nnt")
     return(res)
   }
   if (missing(ranges)) {
@@ -98,12 +101,26 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
       nrow(ranges) != length(torus)) {
     stop("ranges not consistent with length(torus)")
   }
+  # Make data and query matrices
+  data <- as.matrix(data)
+  query <- as.matrix(query)
   # Check that all data and query are in the appropriate ranges
   # Check that ranges are in order (or make them in order?)
   # ................................
   # We transform the data in data and query, columns in torus
   # Repeat for each row in query
   #
+  if (method == 1) {
+    res <- method1_function(data, query, k, torus, ranges, which_fn, ...)
+  } else {
+    res <- method2_function(data, query, k, torus, ranges, which_fn, ...)
+  }
+  res <- c(res, list(data = data, query = query))
+  class(res) <- c("nnt")
+  return(res)
+}
+
+method1_function <- function(data, query, k, torus, ranges, which_fn, ...) {
   # Midpoints, ranges, lower and upper limits variables to be wrapped
   mids <- rowMeans(ranges)
   diffs <- apply(ranges, 1, diff)
@@ -139,37 +156,35 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
     nquery <- query[j, , drop = FALSE]
     nquery[, torus] <- mids
     # Do the search using the new data and the new query values
-    nn2res <- which_fn(data = ndata, query = nquery, k = k, ...)
-    return(nn2res)
+    nnres <- which_fn(data = ndata, query = nquery, k = k, ...)
+    return(nnres)
   }
   # Call by_query() for each
   res <- vapply(1:nrow(query), by_query, list(nn.idx = 0, nn.dists = 0))
   nn.idx <- do.call(rbind, res[1, ])
   nn.dists <- do.call(rbind, res[2, ])
   res <- list(nn.idx = nn.idx, nn.dists = nn.dists)
-  res <- c(res, list(data = data, query = query))
-  class(res) <- c("nn2torus")
   return(res)
 }
 
 # =========================== Plot nearest neighbours ======================= #
 
-#' Plot diagnostics for an nn2torus object
+#' Plot diagnostics for an nnt object
 #'
-#' \code{plot} method for an objects of class \code{c("nn2torus")}.
+#' \code{plot} method for an objects of class \code{c("nnt")}.
 #'
-#' @param x an object of class \code{c("nn2torus")}, a result of
-#'   a call to \code{\link{nn2torus}}.
+#' @param x an object of class \code{c("nnt")}, a result of
+#'   a call to \code{\link{nnt}}.
 #' @param ... Further arguments to be passed to \code{\link[graphics]{plot}},
 #'    \code{\link[graphics]{lines}} or \code{\link[graphics]{points}}.
 #' @return Nothing is returned.
 #' @seealso \code{\link{set_val_data}}: to set validation data.
 #' @section Examples:
-#' See the examples in \code{\link{nn2torus}}.
+#' See the examples in \code{\link{nnt}}.
 #' @export
-plot.nn2torus <- function(x, ...) {
-  if (!inherits(x, "nn2torus")) {
-    stop("use only with \"nn2torus\" objects")
+plot.nnt <- function(x, ...) {
+  if (!inherits(x, "nnt")) {
+    stop("use only with \"nnt\" objects")
   }
   ncov <- ncol(x$data)
   if (ncov > 2) {
