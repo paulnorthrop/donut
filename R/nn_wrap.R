@@ -56,6 +56,13 @@
 #' res <- nnt(DATA, edge, torus = 1:2, ranges = ranges)
 #' plot(res, pch = 16)
 #'
+#' n <- 100
+#' pjn <- cbind(runif(n, 0, 2), runif(n, 0, 1))
+#' ranges <- rbind(c(0, 2), c(0, 1))
+#' edge <- rbind(c(1.0, 0.5), c(0.1, 0.1))
+#' res <- nnt(pjn, edge, torus = 1:2, ranges = ranges, method = 2)
+#' plot(res, pch = 16)
+#'
 #' y <- nshs[, "hs"]
 #' x <- nshs[, c("season", "direction")]
 #' query <- matrix(c(350, 0, 150, 360), 2, 2)
@@ -63,6 +70,13 @@
 #' res <- nnt(data = x, query = query, k = 100, torus = 1:2, ranges = ranges)
 #' res <- nnt(data = x, query = as.matrix(x), k = 100, torus = 1:2, ranges = ranges)
 #' plot(res)
+#'
+#' which_vals <- 1:5
+#' y <- nshs[which_vals, "hs"]
+#' x <- nshs[which_vals, c("season", "direction")]
+#' query <- matrix(c(350, 0, 150, 360), 2, 2)
+#' ranges <- matrix(c(0, 0, 360, 360), 2, 2)
+#' res <- nnt(data = x, query = query, k = 2, torus = 1:2, ranges = ranges)
 #' @export
 nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
                      package = c("RANN", "RANN.L1", "nabor"), method = 1,
@@ -120,6 +134,8 @@ nnt <- function(data, query = data, k = min(10, nrow(data)), torus, ranges,
   return(res)
 }
 
+# ============================ Function for method 1 ======================== #
+
 method1_function <- function(data, query, k, torus, ranges, which_fn, ...) {
   # Midpoints, ranges, lower and upper limits variables to be wrapped
   mids <- rowMeans(ranges)
@@ -167,6 +183,52 @@ method1_function <- function(data, query, k, torus, ranges, which_fn, ...) {
   return(res)
 }
 
+# ============================ Function for method 2 ======================== #
+
+# Do only for variables in torus
+# Add variables not in torus
+# Remove repeated indices
+method2_function <- function(data, query, k, torus, ranges, which_fn, ...) {
+  # The number of variables to be wrapped
+  nt <- length(torus)
+  # The respective ranges of each of these variables
+  diffs <- apply(ranges, 1, diff)
+  # 3^nt factorial design
+  x <- as.matrix(AlgDesign::gen.factorial(rep(3, nt)))
+  # Multiply the -1s, 0s and 1s by the relevant values of diffs to surround the
+  # original data by replicates in all directions
+  x <- sweep(x, 2, diffs, "*")
+  # Midpoints of each range
+  mids <- rowMeans(ranges)
+  # Function to replicate the data around the original data
+  myfn <- function(i) {
+    # Use only a subset of the data
+    # If x[i, j] < 0 then data[i, j] must be > mids[j]
+    # If x[i, j] > 0 then data[i, j] must be < mids[j]
+    # If x[i, j] = 0 then data[i, j] is unconstrained
+    sgn <- sign(x[i, ])
+    data_comp <- sweep(data, 2, sgn, "*")
+    comp <- ifelse(sgn == 0, Inf, sgn * mids)
+    cond <- sweep(data_comp, 2, comp, "<")
+    which_data <- apply(cond, 1, all)
+    subdata <- data[which_data, , drop = FALSE]
+    subdata <- sweep(subdata, 2, x[i, ], "+")
+    idx <- which(which_data)
+    return(list(subdata = subdata, idx = idx))
+  }
+  # Return a list containing each replicated dataset (and the original)
+  # and the indices of original data for each observation in rep_data
+  # rep_data is an nrow(data)*(1+3^(nt-1)) by nt by matrix
+  res <- vapply(1:nrow(x), myfn, list(subdata = 0, idx = 0))
+  rep_data <- do.call(rbind, res[1, ])
+  idx <- do.call(c, res[2, ])
+  # Do the search using rep_data and the original query values
+  nnres <- which_fn(data = rep_data, query = query, k = k, ...)
+  # Return to the indices that relate to the orginal data
+  nnres$nn.idx <- apply(nnres$nn.idx, 1:2, function(x) idx[x])
+  return(nnres)
+}
+
 # =========================== Plot nearest neighbours ======================= #
 
 #' Plot diagnostics for an nnt object
@@ -200,7 +262,8 @@ plot.nnt <- function(x, ...) {
     # Plot covariate positions: validation data in red
     my_plot(x$data, ...)
     for (i in 1:nrow(x$query)) {
-      my_points(x$data[x$nn.idx[i, ], ], ...)
+      print(x$data[x$nn.idx[i, ], ])
+      my_points(x$data[x$nn.idx[i, ], , drop = FALSE], ...)
       # Add the (circular) limits of the kernel
       theta <- seq(0, 2 * pi, len = 100)
       r <- max(x$nn.dists[i, ])

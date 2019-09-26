@@ -72,6 +72,13 @@ edge <- rbind(c(2 * pi, 1.5), c(2 * pi, 3))
 res <- nnt(DATA, edge, torus = 1:2, ranges = ranges)
 plot(res, pch = 16)
 
+n <- 100
+pjn <- cbind(runif(n, 0, 2), runif(n, 0, 1))
+ranges <- rbind(c(0, 2), c(0, 1))
+edge <- rbind(c(1.0, 0.5), c(0.1, 0.1))
+res <- nnt(pjn, edge, torus = 1:2, ranges = ranges, method = 2)
+plot(res, pch = 16)
+
 y <- nshs[, "hs"]
 x <- nshs[, c("season", "direction")]
 query <- matrix(c(350, 0, 150, 360), 2, 2)
@@ -79,6 +86,13 @@ ranges <- matrix(c(0, 0, 360, 360), 2, 2)
 res <- nnt(data = x, query = query, k = 100, torus = 1:2, ranges = ranges)
 res <- nnt(data = x, query = as.matrix(x), k = 100, torus = 1:2, ranges = ranges)
 plot(res)
+
+which_vals <- 1:5
+y <- nshs[which_vals, "hs"]
+x <- nshs[which_vals, c("season", "direction")]
+query <- matrix(c(350, 0, 150, 360), 2, 2)
+ranges <- matrix(c(0, 0, 360, 360), 2, 2)
+res <- nnt(data = x, query = query, k = 2, torus = 1:2, ranges = ranges)
 }
 \seealso{
 \code{\link[RANN:nn2]{RANN::nn2}},
