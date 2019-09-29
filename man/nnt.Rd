@@ -122,5 +122,5 @@ res <- nnt(data = x, query = query, k = 2, torus = 1:2, ranges = ranges)
 \seealso{
 \code{\link[RANN:nn2]{RANN::nn2}},
   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
-  \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searchess.
+  \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
 }

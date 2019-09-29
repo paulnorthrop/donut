@@ -51,7 +51,7 @@
 #'   \item{call}{The call to \code{spm}.}
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
-#'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searchess.
+#'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
 #' @examples
 #' set.seed(20092019)
 #' x1 <- c(0.2, 0.9)
@@ -140,7 +140,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   # We transform the data in data and query, columns in torus
   # Repeat for each row in query
   #
-  if (method %in% 1:2) {
+  if (!(method %in% 1:2)) {
     stop("method must be equal to 1 or 2")
   }
   if (method == 1) {
