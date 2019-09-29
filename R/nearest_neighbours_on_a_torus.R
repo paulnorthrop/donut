@@ -41,8 +41,8 @@
 #'   If \code{torus} is missing then \code{fn} is called using
 #'   \code{fn(data = data, query = query, k = k, ...)}, so that a call to
 #'   \code{nnt} is equivalent to a call to the function chosen by \code{fn}.
-#' @return An object (a list) of class \code{"nnt"} containing the following
-#'   components.
+#' @return An object (a list) of class \code{c("nnt", "donut")} containing the
+#'   following components.
 #'   \item{nn.idx}{An \eqn{N} by \eqn{d} integer matrix of the \code{k}
 #'     nearest neighbour indices, i.e. the rows of \code{data}.}
 #'   \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
@@ -115,7 +115,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   if (missing(torus)) {
     res <- fn(data = data, query = query, k = k, ...)
     res <- c(res, list(data = data, query = query, k = k, call = Call))
-    class(res) <- c("nnt")
+    class(res) <- c("nnt", "donut")
     return(res)
   }
   if (missing(ranges)) {
@@ -150,7 +150,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
     res <- method2_function(data, query, k, torus, ranges, fn, ...)
   }
   res <- c(res, list(data = data, query = query, k = k, call = Call))
-  class(res) <- c("nnt")
+  class(res) <- c("nnt", "donut")
   return(res)
 }
 

@@ -38,8 +38,8 @@ If \code{length(torus)} = 1 then \code{ranges} may be a vector of length
 \item{...}{Further arguments to be passed to \code{fn}.}
 }
 \value{
-An object (a list) of class \code{"nnt"} containing the following
-  components.
+An object (a list) of class \code{c("nnt", "donut")} containing the
+  following components.
   \item{nn.idx}{An \eqn{N} by \eqn{d} integer matrix of the \code{k}
     nearest neighbour indices, i.e. the rows of \code{data}.}
   \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
