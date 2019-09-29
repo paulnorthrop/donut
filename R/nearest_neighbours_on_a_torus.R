@@ -221,7 +221,7 @@ plot.nnt <- function(x, ...) {
   } else {
     plot_data <- cbind(x$data, index = 1:nrow(x$data))
     my_plot(plot_data, ...)
-    abline(v = x$query, col = user_args$col)
+    graphics::abline(v = x$query, col = user_args$col)
     for (i in 1:nquery) {
       i_user_args <- user_args
       i_user_args$col <- user_args$col[i]
