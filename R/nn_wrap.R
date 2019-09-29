@@ -213,7 +213,6 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
   # Function to replicate the data around the original data
   # Only use the variables to be wrapped
   tdata <- data[, torus, drop = FALSE]
-  print(dim(tdata))
   myfn <- function(i) {
     # Use only a subset of the data
     # If x[i, j] < 0 then tdata[i, j] must be > mids[j]
