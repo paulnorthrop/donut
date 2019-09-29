@@ -4,8 +4,8 @@
 \alias{nnt}
 \title{Nearest Neighbour Search}
 \usage{
-nnt(data, query = data, k = min(10, nrow(data)), torus, ranges,
-  package = c("RANN", "RANN.L1", "nabor"), method = 1, ...)
+nnt(data, query = data, k = min(10, nrow(data)), fn = RANN::nn2,
+  torus, ranges, method = 1, ...)
 }
 \arguments{
 \item{data}{An \eqn{M} by \eqn{d} numeric matrix or data frame.  Each of the
@@ -18,10 +18,15 @@ contains an \eqn{d}-dimensional point that will be queried against
 \item{k}{An integer scalar.  The number of nearest neighbours, of the
 points in the rows of \code{query}, to find.}
 
+\item{fn}{The function with which to calculate the nearest neighbours.
+The syntax of this function must be \code{fn(data, query, k, ...)}.
+The default is \code{RANN::nn2}.  Other possibilities are
+\code{RANN.L1:nn2} and \code{nabor::knn}.}
+
 \item{torus}{An integer vector with element in
 \{1, ..., \code{ncol(data)}\}.  If \code{torus} is missing then
 a call to \code{nnt} is equivalent to a call to the function chosen
-by \code{package}.}
+by \code{fn}.}
 
 \item{ranges}{A \code{length(torus)} by \code{2} numeric matrix.
 Row \code{i} gives the range of variation of the variable indexed by
@@ -30,15 +35,9 @@ are equivalent values of the variable, such as 0 degrees and 360 degrees.
 If \code{length(torus)} = 2 then \code{ranges} may be a vector of length
 2.}
 
-\item{package}{The package to use calculate the nearest neighbours.
-One of \code{"RANN"}, \code{"RANN.L1"} or \code{"nabor"}.}
-
 \item{method}{An integer scalar, equal to 1 or 2.}
 
-\item{...}{Further arguments to be passed to
-\code{\link[RANN:nn2]{RANN::nn2}},
-\code{\link[RANN.L1:nn2]{RANN.L1::nn2}} or
-\code{\link[nabor:knn]{nabor::knn}}}
+\item{...}{Further arguments to be passed to \code{fn}.}
 }
 \value{
 Return
@@ -52,6 +51,14 @@ Add details
 }
 \examples{
 set.seed(20092019)
+x1 <- c(0.2, 0.9)
+x2 <- c(0.4, 0.7)
+x <- cbind(x1, x2)
+edge <- x
+res <- nnt(x, edge)
+ranges <- c(0, 1)
+res <- nnt(x, edge, torus = 1, ranges = ranges)
+
 # Example from the RANN:nn2 documentation
 x1 <- runif(100, 0, 2 * pi)
 x2 <- runif(100, 0, 3)
