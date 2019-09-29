@@ -32,7 +32,7 @@ by \code{fn}.}
 Row \code{i} gives the range of variation of the variable indexed by
 \code{torus[i]}. \code{ranges[i, 1]} and \code{ranges[i, 2]}
 are equivalent values of the variable, such as 0 degrees and 360 degrees.
-If \code{length(torus)} = 2 then \code{ranges} may be a vector of length
+If \code{length(torus)} = 1 then \code{ranges} may be a vector of length
 2.}
 
 \item{method}{An integer scalar, equal to 1 or 2.}
@@ -43,8 +43,9 @@ If \code{length(torus)} = 2 then \code{ranges} may be a vector of length
 Return
 }
 \description{
-Uses \code{\link[RANN]{nn2}} to find the nearest neighbours in a dataset
-specified points, adding the option to wrap certain variables on a torus.
+Uses a user-supplied function to find the \code{k} nearest neighbours of
+specified points in a dataset, adding the option to wrap certain variables
+on a torus.
 }
 \details{
 Add details
