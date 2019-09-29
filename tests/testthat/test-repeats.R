@@ -18,7 +18,7 @@ if (got_RANN) {
   res2 <- nnt(x, x, torus = 1, ranges = c(0, 1), method = 2)
   # The calls are different, but otherwise the results should be the same
   res1$call <- res2$call <- NULL
-  test_that("RANN: no wrapping, nn.idx", {
+  test_that("RANN: repeats 1D", {
     testthat::expect_equal(res1, res2)
   })
 
@@ -32,7 +32,7 @@ if (got_RANN) {
   res2 <- nnt(x, query, torus = 1:2, ranges = ranges, method = 2)
   # The calls are different, but otherwise the results should be the same
   res1$call <- res2$call <- NULL
-  test_that("RANN: no wrapping, nn.idx", {
+  test_that("RANN: repeats 2D", {
     testthat::expect_equal(res1, res2)
   })
 }
