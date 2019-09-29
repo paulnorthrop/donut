@@ -290,7 +290,6 @@ plot.nnt <- function(x, ...) {
     # Plot covariate positions: validation data in red
     my_plot(x$data, ...)
     for (i in 1:nrow(x$query)) {
-#      print(x$data[x$nn.idx[i, ], ])
       my_points(x$data[x$nn.idx[i, ], , drop = FALSE], ...)
       # Add the (circular) limits of the kernel
       theta <- seq(0, 2 * pi, len = 100)
