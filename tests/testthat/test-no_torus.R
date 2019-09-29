@@ -1,4 +1,4 @@
-context("Methods 1 and 2 agree")
+context("No torus")
 
 # Check that RANN is available
 got_RANN <- requireNamespace("RANN", quietly = TRUE)
