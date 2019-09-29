@@ -46,6 +46,8 @@ An object (a list) of class \code{c("nnt", "donut")} containing the
     nearest neighbour distances.}
   \item{data, query, k}{The input arguments \code{data}, \code{query} and
     \code{k}.}
+  \item{fn, torus, ranges, method}{The input arguments \code{fn},
+    \code{torus}, \code{ranges} and \code{method}.}
   \item{call}{The call to \code{spm}.}
 }
 \description{

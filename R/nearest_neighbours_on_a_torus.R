@@ -49,6 +49,8 @@
 #'     nearest neighbour distances.}
 #'   \item{data, query, k}{The input arguments \code{data}, \code{query} and
 #'     \code{k}.}
+#'   \item{fn, torus, ranges, method}{The input arguments \code{fn},
+#'     \code{torus}, \code{ranges} and \code{method}.}
 #'   \item{call}{The call to \code{spm}.}
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
@@ -134,7 +136,9 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   } else {
     res <- method2_function(data, query, k, torus, ranges, fn, ...)
   }
-  res <- c(res, list(data = data, query = query, k = k, call = Call))
+  res <- c(res, list(data = data, query = query, k = k, fn = fn,
+                     torus = torus, ranges = ranges, method = method,
+                     call = Call))
   class(res) <- c("nnt", "donut")
   return(res)
 }
