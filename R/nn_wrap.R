@@ -88,19 +88,8 @@
 #' @export
 nnt <- function(data, query = data, k = min(10, nrow(data)),
                 fn = RANN::nn2, torus, ranges, method = 1, ...) {
-#  package <- match.arg(package)
-  # Check that the chosen package is available
-#  if (!requireNamespace(package, quietly = TRUE)) {
-#    stop("Package ", package, "is not installed", call. = FALSE)
-#  }
-  # Set the function to be used
-#  which_fn <- switch(package,
-#                     RANN = RANN::nn2,
-#                     RANN.L1 = RANN.L1::nn2,
-#                     nabor = nabor::knn)
   # Do the search and add data and query to the returned object
   if (missing(torus)) {
-#    res <- which_fn(data = data, query = query, k = k, ...)
     res <- fn(data = data, query = query, k = k, ...)
     res <- c(res, list(data = data, query = query))
     class(res) <- c("nnt")
