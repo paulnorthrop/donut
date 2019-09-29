@@ -121,6 +121,9 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   # We transform the data in data and query, columns in torus
   # Repeat for each row in query
   #
+  if (method %in% 1:2) {
+    stop("method must be equal to 1 or 2")
+  }
   if (method == 1) {
     res <- method1_function(data, query, k, torus, ranges, fn, ...)
   } else {
