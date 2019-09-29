@@ -133,62 +133,8 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
 
 # ============================ Function for method 1 ======================== #
 
-method1_function <- function(data, query, k, torus, ranges, fn, ...) {
-  # Midpoints, ranges, lower and upper limits variables to be wrapped
-  mids <- rowMeans(ranges)
-  diffs <- apply(ranges, 1, diff)
-  low <- ranges[, 1]
-  high <- ranges[, 2]
-  # Function to find the nearest neighbours for the jth row of query, that is,
-  # for the jth point of interest
-  by_query <- function(j) {
-    # Take a copy of the data and shift data for the variables to be wrapped
-    # so that the point of interest is at the midpoint of the each variable
-    ndata <- data
-    shoof <- query[j, torus] - mids
-    ndata[, torus] <- sweep(ndata[, torus, drop = FALSE], 2, shoof, "-")
-    # The consequence of the shift is that data are moved below or above the
-    # ranges of the variables. Wrap these data round to the parts of the
-    # ranges that have been vacated data that have been shifted up (shoof is
-    # negative) or down (shoof is positive).
-    #
-    # The amounts that we need to move these data are stored in diffs.
-    # The direction that we move them depends on the sign of shoof (sgn):
-    # we will add sgn * diffs to such data
-    sgn <- sign(shoof)
-    # Multiply data for that were shifted up by -1.  Then we can identify
-    # values that lie above the range by whether they are less than high
-    data_comp <- sweep(ndata[, torus, drop = FALSE], 2, sgn, "*")
-    # If sgn =  1: data were shifted down and values < low are shifted up
-    # If sgn = -1: data were shifted up and -values < -high are shifted down
-    comp <- (sgn == 1) * low - (sgn == -1) * high
-    # Find the values to move (for whom comp = TRUE) and then move (only) them
-    cond <- sweep(data_comp, 2, comp, "<")
-    ndata[, torus] <- ndata[, torus] + sweep(cond, 2, sgn * diffs, "*")
-    # Move the point of interest to the midpoint
-    nquery <- query[j, , drop = FALSE]
-    nquery[, torus] <- mids
-    # Do the search using the new data and the new query values
-    nnres <- fn(data = ndata, query = nquery, k = k, ...)
-    return(nnres)
-  }
-  # Call by_query() for each
-  res <- vapply(1:nrow(query), by_query, list(nn.idx = 0, nn.dists = 0))
-  nn.idx <- do.call(rbind, res[1, ])
-  nn.dists <- do.call(rbind, res[2, ])
-  res <- list(nn.idx = nn.idx, nn.dists = nn.dists)
-  return(res)
-}
-
-# ============================ Function for method 2 ======================== #
-
-# Think hard about how to deal with the case where some variables are wrapped
-# and others are not.
-
-# Do only for variables in torus
-# Add variables not in torus
 # Remove repeated indices
-method2_function <- function(data, query, k, torus, ranges, fn, ...) {
+method1_function <- function(data, query, k, torus, ranges, fn, ...) {
   # The number of variables to be wrapped
   nt <- length(torus)
   # The respective ranges of each of these variables
@@ -238,6 +184,55 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
   idx <- do.call(c, res[3, ])
   nnres$nn.idx <- apply(nnres$nn.idx, 1:2, function(x) idx[x])
   return(nnres)
+}
+
+# ============================ Function for method 2 ======================== #
+
+method2_function <- function(data, query, k, torus, ranges, fn, ...) {
+  # Midpoints, ranges, lower and upper limits variables to be wrapped
+  mids <- rowMeans(ranges)
+  diffs <- apply(ranges, 1, diff)
+  low <- ranges[, 1]
+  high <- ranges[, 2]
+  # Function to find the nearest neighbours for the jth row of query, that is,
+  # for the jth point of interest
+  by_query <- function(j) {
+    # Take a copy of the data and shift data for the variables to be wrapped
+    # so that the point of interest is at the midpoint of the each variable
+    ndata <- data
+    shoof <- query[j, torus] - mids
+    ndata[, torus] <- sweep(ndata[, torus, drop = FALSE], 2, shoof, "-")
+    # The consequence of the shift is that data are moved below or above the
+    # ranges of the variables. Wrap these data round to the parts of the
+    # ranges that have been vacated data that have been shifted up (shoof is
+    # negative) or down (shoof is positive).
+    #
+    # The amounts that we need to move these data are stored in diffs.
+    # The direction that we move them depends on the sign of shoof (sgn):
+    # we will add sgn * diffs to such data
+    sgn <- sign(shoof)
+    # Multiply data for that were shifted up by -1.  Then we can identify
+    # values that lie above the range by whether they are less than high
+    data_comp <- sweep(ndata[, torus, drop = FALSE], 2, sgn, "*")
+    # If sgn =  1: data were shifted down and values < low are shifted up
+    # If sgn = -1: data were shifted up and -values < -high are shifted down
+    comp <- (sgn == 1) * low - (sgn == -1) * high
+    # Find the values to move (for whom comp = TRUE) and then move (only) them
+    cond <- sweep(data_comp, 2, comp, "<")
+    ndata[, torus] <- ndata[, torus] + sweep(cond, 2, sgn * diffs, "*")
+    # Move the point of interest to the midpoint
+    nquery <- query[j, , drop = FALSE]
+    nquery[, torus] <- mids
+    # Do the search using the new data and the new query values
+    nnres <- fn(data = ndata, query = nquery, k = k, ...)
+    return(nnres)
+  }
+  # Call by_query() for each
+  res <- vapply(1:nrow(query), by_query, list(nn.idx = 0, nn.dists = 0))
+  nn.idx <- do.call(rbind, res[1, ])
+  nn.dists <- do.call(rbind, res[2, ])
+  res <- list(nn.idx = nn.idx, nn.dists = nn.dists)
+  return(res)
 }
 
 # =========================== Plot nearest neighbours ======================= #
