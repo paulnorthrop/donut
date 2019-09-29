@@ -212,9 +212,10 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
   mids <- rowMeans(ranges)
   # Function to replicate the data around the original data
   # Only use the variables to be wrapped
+  # Each i corresponds to a different replicate
   tdata <- data[, torus, drop = FALSE]
   myfn <- function(i) {
-    # Use only a subset of the data
+    # Figure out which rows of tdata should be included
     # If x[i, j] < 0 then tdata[i, j] must be > mids[j]
     # If x[i, j] > 0 then tdata[i, j] must be < mids[j]
     # If x[i, j] = 0 then tdata[i, j] is unconstrained
@@ -222,27 +223,29 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
     data_comp <- sweep(tdata, 2, sgn, "*")
     comp <- ifelse(sgn == 0, Inf, sgn * mids)
     cond <- sweep(data_comp, 2, comp, "<")
-    which_data <- apply(cond, 1, all)
-    subdata <- tdata[which_data, , drop = FALSE]
+    which_rows <- apply(cond, 1, all)
+    # Create the replicated data, add the other variables (if any)
+    subdata <- tdata[which_rows, , drop = FALSE]
     subdata <- sweep(subdata, 2, x[i, ], "+")
-    idx <- which(which_data)
-    restdata <- data[which_data, -torus, drop = FALSE]
-    return(list(subdata = subdata, idx = idx, restdata = restdata))
+    restdata <- data[which_rows, -torus, drop = FALSE]
+    # Add the row numbers, so that we can return the original indices later
+    idx <- which(which_rows)
+    return(list(subdata = subdata, restdata = restdata, idx = idx))
   }
   # Return a list containing each replicated dataset (and the original)
   # and the indices of original data for each observation in rep_data
   # rep_data is an nrow(data)*(1+3^(nt-1)) by nt by matrix
   res <- vapply(1:nrow(x), myfn, list(subdata = 0, idx = 0, restdata = 0))
   rep_data <- do.call(rbind, res[1, ])
-  rest_data <- do.call(rbind, res[3, ])
+  rest_data <- do.call(rbind, res[2, ])
   # Replicate data
   big_data <- matrix(NA, nrow(rep_data), ncol(data), byrow = TRUE)
   big_data[, torus] <- rep_data
   big_data[, -torus] <- rest_data
-  idx <- do.call(c, res[2, ])
   # Do the search using rep_data and the original query values
   nnres <- fn(data = big_data, query = query, k = k, ...)
   # Return to the indices that relate to the orginal data
+  idx <- do.call(c, res[3, ])
   nnres$nn.idx <- apply(nnres$nn.idx, 1:2, function(x) idx[x])
   return(nnres)
 }
