@@ -1,0 +1,31 @@
+#' donut: Nearest Neighbour Search with Variables on a Torus
+#'
+#' Describe
+#'
+#' @details The main function is \code{\link{nnt}}.
+#'
+#'   \code{\link[RANN]{RANN-package}}
+#'   \code{\link[RANN.L1]{RANN.L1-package}}
+#'   \code{\link[nabor]{nabor-package}}
+#'
+#'   See \code{vignette("donut-vignette", package = "donut")} for an
+#'   overview of the package.
+#' @references Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
+#'   RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
+#'   Metric. R package version 2.6.1.
+#'   \url{https://CRAN.R-project.org/package=RANN}
+#' @references Arya, S., Mount, D., Kemp, S. E., Jefferis, G. and Muller,
+#'   K. (2018)  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using
+#'   L1 Metric. R package version 2.5.2.
+#'   \url{https://CRAN.R-project.org/package=RANN.L1}
+#' @references Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
+#'   Comparison of nearest-neighbor-search strategies and implementations for
+#'   efficient shape registration. \emph{Journal of Software Engineering for
+#'   Robotics (JOSER)}, \strong{3}(1), 2-12
+#'   \url{https://CRAN.R-project.org/package=nabor}
+#' @seealso \code{\link{nnt}} for nearest neighbour with some variables
+#'   wrapped on a torus.
+#' @docType package
+#' @name donut
+#' @import methods
+NULL
