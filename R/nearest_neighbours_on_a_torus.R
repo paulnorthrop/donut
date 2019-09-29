@@ -267,7 +267,7 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
 #' @param x an object of class \code{c("nnt")}, a result of
 #'   a call to \code{\link{nnt}}.
 #' @param ... Further arguments to be passed to \code{\link[graphics]{plot}},
-#'    \code{\link[graphics]{lines}} or \code{\link[graphics]{points}}.
+#'   or \code{\link[graphics]{points}}.
 #' @details This function is only applicable in 1 or 2 dimensions, that is,
 #'   when \code{ncol(x$data)} = 1 or 2.
 #'

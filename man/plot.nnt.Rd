@@ -11,7 +11,7 @@
 a call to \code{\link{nnt}}.}
 
 \item{...}{Further arguments to be passed to \code{\link[graphics]{plot}},
-\code{\link[graphics]{lines}} or \code{\link[graphics]{points}}.}
+or \code{\link[graphics]{points}}.}
 }
 \value{
 Nothing is returned.
