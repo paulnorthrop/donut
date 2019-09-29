@@ -47,7 +47,8 @@
 #'     nearest neighbour indices, i.e. the rows of \code{data}.}
 #'   \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
 #'     nearest neighbour distances.}
-#'   \item{data, query}{The input arguments \code{data} and \code{query}.}
+#'   \item{data, query, k}{The input arguments \code{data}, \code{query} and
+#'     \code{k}.}
 #'   \item{call}{The call to \code{spm}.}
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
@@ -110,7 +111,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   # Do the search and add data and query to the returned object
   if (missing(torus)) {
     res <- fn(data = data, query = query, k = k, ...)
-    res <- c(res, list(data = data, query = query, call = Call))
+    res <- c(res, list(data = data, query = query, k = k, call = Call))
     class(res) <- c("nnt")
     return(res)
   }
@@ -148,7 +149,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   } else {
     res <- method2_function(data, query, k, torus, ranges, fn, ...)
   }
-  res <- c(res, list(data = data, query = query, call = Call))
+  res <- c(res, list(data = data, query = query, k = k, call = Call))
   class(res) <- c("nnt")
   return(res)
 }
@@ -286,17 +287,21 @@ plot.nnt <- function(x, ...) {
   my_points <- function(x, ..., col = "red", lwd) {
     graphics::points(x, ..., col = col, lwd = 1)
   }
+  user_args <- list(...)
+  nquery <- nrow(x$query)
+  if (is.null(user_args$col)) {
+    user_args$col <- 1 + 1:nquery
+  }
+  print(user_args$col)
   if (ncov == 2) {
     # Plot covariate positions: validation data in red
     my_plot(x$data, ...)
-    for (i in 1:nrow(x$query)) {
-      my_points(x$data[x$nn.idx[i, ], , drop = FALSE], ...)
-      # Add the (circular) limits of the kernel
-      theta <- seq(0, 2 * pi, len = 100)
-      r <- max(x$nn.dists[i, ])
-      xvals <- r * cos(theta) + x$query[i, 1]
-      yvals <- r * sin(theta) + x$query[i, 2]
-      graphics::lines(xvals, yvals, ...)
+    for (i in 1:nquery) {
+      i_user_args <- user_args
+      i_user_args$col <- user_args$col[i]
+      for_my_points <- c(list(x = x$data[x$nn.idx[i, ], , drop = FALSE]),
+                         i_user_args)
+      do.call(my_points, for_my_points)
       graphics::points(x$query, pch = "x")
     }
   } else {

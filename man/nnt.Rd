@@ -44,7 +44,8 @@ An object (a list) of class \code{"nnt"} containing the following
     nearest neighbour indices, i.e. the rows of \code{data}.}
   \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
     nearest neighbour distances.}
-  \item{data, query}{The input arguments \code{data} and \code{query}.}
+  \item{data, query, k}{The input arguments \code{data}, \code{query} and
+    \code{k}.}
   \item{call}{The call to \code{spm}.}
 }
 \description{
