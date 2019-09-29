@@ -18,19 +18,37 @@
 #'   The default is \code{RANN::nn2}.  Other possibilities are
 #'   \code{RANN.L1:nn2} and \code{nabor::knn}.
 #' @param torus An integer vector with element in
-#'   \{1, ..., \code{ncol(data)}\}.  If \code{torus} is missing then
-#'   a call to \code{nnt} is equivalent to a call to the function chosen
-#'   by \code{fn}.
+#'   \{1, ..., \code{ncol(data)}\}.
 #' @param ranges A \code{length(torus)} by \code{2} numeric matrix.
 #'   Row \code{i} gives the range of variation of the variable indexed by
 #'   \code{torus[i]}. \code{ranges[i, 1]} and \code{ranges[i, 2]}
 #'   are equivalent values of the variable, such as 0 degrees and 360 degrees.
 #'   If \code{length(torus)} = 1 then \code{ranges} may be a vector of length
 #'   2.
-#' @param method An integer scalar, equal to 1 or 2.
+#' @param method An integer scalar, equal to 1 or 2.  See \strong{Details}.
 #' @param ... Further arguments to be passed to \code{fn}.
-#' @details Add details
-#' @return Return
+#' @details
+#'   If \code{method = 1} then the data are partially replicated, arranged
+#'   around the original data in a way that wraps the variables in \code{torus} on their respective
+#'   ranges in \code{ranges}.  Then \code{fn} is called using this replicated
+#'   dataset as the argument \code{data}.  If \code{method = 2} then the
+#'   following approach is used for the point in each row in \code{query}.
+#'   The data indexed by \code{torus} are shifted (and wrapped) so that the
+#'   point is located at the respective midpoints of \code{ranges}.
+#'   This is only be an efficient approach if the number of points in
+#'   \code{query} are is small.
+#'
+#'   If \code{torus} is missing then \code{fn} is called using
+#'   \code{fn(data = data, query = query, k = k, ...)}, so that a call to
+#'   \code{nnt} is equivalent to a call to the function chosen by \code{fn}.
+#' @return An object (a list) of class \code{"nnt"} containing the following
+#'   components.
+#'   \item{nn.idx}{An \eqn{N} by \eqn{d} integer matrix of the \code{k}
+#'     nearest neighbour indices, i.e. the rows of \code{data}.}
+#'   \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
+#'     nearest neighbour distances.}
+#'   \item{data, query}{The input arguments \code{data} and \code{query}.}
+#'   \item{call}{The call to \code{spm}.}
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
 #'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searchess.
@@ -88,10 +106,11 @@
 #' @export
 nnt <- function(data, query = data, k = min(10, nrow(data)),
                 fn = RANN::nn2, torus, ranges, method = 1, ...) {
+  Call <- match.call(expand.dots = TRUE)
   # Do the search and add data and query to the returned object
   if (missing(torus)) {
     res <- fn(data = data, query = query, k = k, ...)
-    res <- c(res, list(data = data, query = query))
+    res <- c(res, list(data = data, query = query, call = Call))
     class(res) <- c("nnt")
     return(res)
   }
@@ -129,7 +148,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   } else {
     res <- method2_function(data, query, k, torus, ranges, fn, ...)
   }
-  res <- c(res, list(data = data, query = query))
+  res <- c(res, list(data = data, query = query, call = Call))
   class(res) <- c("nnt")
   return(res)
 }

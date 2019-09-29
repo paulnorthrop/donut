@@ -24,9 +24,7 @@ The default is \code{RANN::nn2}.  Other possibilities are
 \code{RANN.L1:nn2} and \code{nabor::knn}.}
 
 \item{torus}{An integer vector with element in
-\{1, ..., \code{ncol(data)}\}.  If \code{torus} is missing then
-a call to \code{nnt} is equivalent to a call to the function chosen
-by \code{fn}.}
+\{1, ..., \code{ncol(data)}\}.}
 
 \item{ranges}{A \code{length(torus)} by \code{2} numeric matrix.
 Row \code{i} gives the range of variation of the variable indexed by
@@ -35,12 +33,19 @@ are equivalent values of the variable, such as 0 degrees and 360 degrees.
 If \code{length(torus)} = 1 then \code{ranges} may be a vector of length
 2.}
 
-\item{method}{An integer scalar, equal to 1 or 2.}
+\item{method}{An integer scalar, equal to 1 or 2.  See \strong{Details}.}
 
 \item{...}{Further arguments to be passed to \code{fn}.}
 }
 \value{
-Return
+An object (a list) of class \code{"nnt"} containing the following
+  components.
+  \item{nn.idx}{An \eqn{N} by \eqn{d} integer matrix of the \code{k}
+    nearest neighbour indices, i.e. the rows of \code{data}.}
+  \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
+    nearest neighbour distances.}
+  \item{data, query}{The input arguments \code{data} and \code{query}.}
+  \item{call}{The call to \code{spm}.}
 }
 \description{
 Uses a user-supplied function to find the \code{k} nearest neighbours of
@@ -48,7 +53,19 @@ specified points in a dataset, adding the option to wrap certain variables
 on a torus.
 }
 \details{
-Add details
+If \code{method = 1} then the data are partially replicated, arranged
+  around the original data in a way that wraps the variables in \code{torus} on their respective
+  ranges in \code{ranges}.  Then \code{fn} is called using this replicated
+  dataset as the argument \code{data}.  If \code{method = 2} then the
+  following approach is used for the point in each row in \code{query}.
+  The data indexed by \code{torus} are shifted (and wrapped) so that the
+  point is located at the respective midpoints of \code{ranges}.
+  This is only be an efficient approach if the number of points in
+  \code{query} are is small.
+
+  If \code{torus} is missing then \code{fn} is called using
+  \code{fn(data = data, query = query, k = k, ...)}, so that a call to
+  \code{nnt} is equivalent to a call to the function chosen by \code{fn}.
 }
 \examples{
 set.seed(20092019)
