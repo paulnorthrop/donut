@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# lax
+# donut
 
 [![Travis-CI Build Status](https://travis-ci.org/paulnorthrop/donut.svg?branch=master)](https://travis-ci.org/paulnorthrop/donut) 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/donut?branch=master&svg=true)](https://ci.appveyor.com/project/paulnorthrop/donut)

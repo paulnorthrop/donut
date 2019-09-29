@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-lax
-===
+donut
+=====
 
 [![Travis-CI Build Status](https://travis-ci.org/paulnorthrop/donut.svg?branch=master)](https://travis-ci.org/paulnorthrop/donut) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/donut?branch=master&svg=true)](https://ci.appveyor.com/project/paulnorthrop/donut) [![Coverage Status](https://codecov.io/github/paulnorthrop/donut/coverage.svg?branch=master)](https://codecov.io/github/paulnorthrop/donut?branch=master)
 
