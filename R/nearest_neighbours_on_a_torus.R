@@ -108,6 +108,9 @@
 nnt <- function(data, query = data, k = min(10, nrow(data)),
                 fn = RANN::nn2, torus, ranges, method = 1, ...) {
   Call <- match.call(expand.dots = TRUE)
+  # Make data and query matrices
+  data <- as.matrix(data)
+  query <- as.matrix(query)
   # Do the search and add data and query to the returned object
   if (missing(torus)) {
     res <- fn(data = data, query = query, k = k, ...)
@@ -132,9 +135,6 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
       nrow(ranges) != length(torus)) {
     stop("ranges not consistent with length(torus)")
   }
-  # Make data and query matrices
-  data <- as.matrix(data)
-  query <- as.matrix(query)
   # Check that all data and query are in the appropriate ranges
   # Check that ranges are in order (or make them in order?)
   # ................................
@@ -268,33 +268,50 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
 #'   a call to \code{\link{nnt}}.
 #' @param ... Further arguments to be passed to \code{\link[graphics]{plot}},
 #'    \code{\link[graphics]{lines}} or \code{\link[graphics]{points}}.
+#' @details This function is only applicable in 1 or 2 dimensions, that is,
+#'   when \code{ncol(x$data)} = 1 or 2.
+#'
+#'   If \code{ncol(x$data)} = 1 then the index of each observation is plotted
+#'   against its value, using a plotting character \code{pch = 1}.  A vertical
+#'   line is superimposed at each value in \code{x$query} and the \code{x$k$}
+#'   nearest neighbours of each line are colour-coded.
+#'
+#'   If \code{ncol(x$data)} = 2 then \code{x$data[, 2]} is plotted against
+#'   \code{x$data[, 1]}, using a plotting character \code{pch = 1}.  Each point
+#'   in \code{x$query} is plotted with a cross and the \code{x$k$}
+#'   nearest neighbours of each point are colour-coded.
+#'
+#'   Colours of the lines/crosses and nearest neighbour points can be set sing an
+#'   argument \code{col}.
 #' @return Nothing is returned.
-#' @seealso \code{\link{set_val_data}}: to set validation data.
+#' @seealso \code{\link{nnt}} for nearest neighbour with some variables
+#'   wrapped on a torus.
 #' @section Examples:
 #' See the examples in \code{\link{nnt}}.
 #' @export
 plot.nnt <- function(x, ...) {
-  if (!inherits(x, "nnt")) {
-    stop("use only with \"nnt\" objects")
+  if (!inherits(x, "donut")) {
+    stop("use only with \"donut\" objects")
   }
   ncov <- ncol(x$data)
   if (ncov > 2) {
     stop("The plot method works for up to 2 covariates only")
   }
-  my_plot <- function(x, ..., lwd, col) {
+  if (is.null(colnames(x$data))) {
+    colnames(x$data) <- paste0("X", 1:ncol(x$data))
+  }
+  my_plot <- function(x, ..., pch, lwd, col) {
     graphics::plot(x, ..., lwd = 1, col = "black")
   }
-  my_points <- function(x, ..., col = "red", lwd) {
-    graphics::points(x, ..., col = col, lwd = 1)
+  my_points <- function(x, ..., pch = 16, col = "red", lwd) {
+    graphics::points(x, ..., pch = pch, col = col, lwd = 1)
   }
   user_args <- list(...)
   nquery <- nrow(x$query)
   if (is.null(user_args$col)) {
     user_args$col <- 1 + 1:nquery
   }
-  print(user_args$col)
   if (ncov == 2) {
-    # Plot covariate positions: validation data in red
     my_plot(x$data, ...)
     for (i in 1:nquery) {
       i_user_args <- user_args
@@ -302,15 +319,20 @@ plot.nnt <- function(x, ...) {
       for_my_points <- c(list(x = x$data[x$nn.idx[i, ], , drop = FALSE]),
                          i_user_args)
       do.call(my_points, for_my_points)
-      graphics::points(x$query, pch = "x")
     }
+    for_points <- list(x = x$query, col = user_args$col, pch = "x")
+    do.call(graphics::points, for_points)
   } else {
-    # Plot covariate positions: validation data in red
-    my_plot(cbind(x$x, x$y), ...)
-    my_points(x$val_data[, c(2, 1)], ...)
-    # Add the limits of the kernel
-    v <- c(x$x0 - x$val_bw, x$x0, x$x0 + x$val_bw)
-    graphics::abline(v = v, ...)
+    plot_data <- cbind(x$data, index = 1:nrow(x$data))
+    my_plot(plot_data, ...)
+    abline(v = x$query, col = user_args$col)
+    for (i in 1:nquery) {
+      i_user_args <- user_args
+      i_user_args$col <- user_args$col[i]
+      plot_data <- cbind(x$data[x$nn.idx[i, ], , drop = FALSE], x$nn.idx[i, ])
+      for_my_points <- c(list(x = plot_data), i_user_args)
+      do.call(my_points, for_my_points)
+    }
   }
   return(invisible())
 }
