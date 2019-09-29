@@ -7,7 +7,9 @@ Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
 Description: Finds the k nearest neighbours of specified points in a dataset, 
   adding the option to wrap certain variables on a torus.  The user chooses
   the algorithm to use to find the nearest neighbours. Three such algorithms,
-  provided by the packages RANN, RANN.L1 and nabor, are suggested.
+  provided by the packages 'RANN' <https://cran.r-project.org/package=RANN>, 
+  'RANN.L1' <https://cran.r-project.org/package=RANN.L1>, and 'nabor' 
+  <https://cran.r-project.org/package=nabor>, are suggested.
 Imports: graphics,
     methods
 License: GPL (>= 2)
