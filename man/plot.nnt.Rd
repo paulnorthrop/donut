@@ -21,7 +21,10 @@ Nothing is returned.
 }
 \details{
 This function is only applicable in 1 or 2 dimensions, that is,
-  when \code{ncol(x$data)} = 1 or 2.
+  when \code{ncol(x$data)} = 1 or 2.  It provides a visual check that the
+  wrapping of variables is working as intended, in cases where the
+  number of query points, that is, \code{nrow(x$query)} is small
+  enough that sets of nearest neighbours do not overlap much.
 
   If \code{ncol(x$data)} = 1 then the index of each observation is plotted
   against its value, using a plotting character \code{pch = 1}.  A vertical

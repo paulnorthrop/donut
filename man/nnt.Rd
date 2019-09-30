@@ -72,13 +72,6 @@ If \code{method = 1} then the data are partially replicated, arranged
 }
 \examples{
 set.seed(20092019)
-x1 <- c(0.2, 0.9)
-x2 <- c(0.4, 0.7)
-x <- cbind(x1, x2)
-edge <- x
-res <- nnt(x, edge)
-ranges <- c(0, 1)
-res <- nnt(x, edge, torus = 1, ranges = ranges)
 
 # Example from the RANN:nn2 documentation
 x1 <- runif(100, 0, 2 * pi)

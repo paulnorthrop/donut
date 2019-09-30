@@ -57,13 +57,6 @@
 #'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
 #' @examples
 #' set.seed(20092019)
-#' x1 <- c(0.2, 0.9)
-#' x2 <- c(0.4, 0.7)
-#' x <- cbind(x1, x2)
-#' edge <- x
-#' res <- nnt(x, edge)
-#' ranges <- c(0, 1)
-#' res <- nnt(x, edge, torus = 1, ranges = ranges)
 #'
 #' # Example from the RANN:nn2 documentation
 #' x1 <- runif(100, 0, 2 * pi)
@@ -152,7 +145,10 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
 #' @param ... Further arguments to be passed to \code{\link[graphics]{plot}},
 #'   or \code{\link[graphics]{points}}.
 #' @details This function is only applicable in 1 or 2 dimensions, that is,
-#'   when \code{ncol(x$data)} = 1 or 2.
+#'   when \code{ncol(x$data)} = 1 or 2.  It provides a visual check that the
+#'   wrapping of variables is working as intended, in cases where the
+#'   number of query points, that is, \code{nrow(x$query)} is small
+#'   enough that sets of nearest neighbours do not overlap much.
 #'
 #'   If \code{ncol(x$data)} = 1 then the index of each observation is plotted
 #'   against its value, using a plotting character \code{pch = 1}.  A vertical
