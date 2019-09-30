@@ -28,7 +28,7 @@ if (got_RANN) {
 
   # 1D
   ranges <- c(0, 2 * pi)
-  query <- c(6, 0.1)
+  query <- c(4, 0.1)
   res <- nnt(x1, query, torus = 1, ranges = ranges, method = 1)
   test_that("RANN: plot 1D", {
     testthat::expect_equal(plot(res), NULL)
