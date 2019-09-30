@@ -132,10 +132,21 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
       nrow(ranges) != length(torus)) {
     stop("ranges not consistent with length(torus)")
   }
+  # Sort the values in the rows of ranges, from smallest to largest
+  ranges <- t(apply(ranges, 1, sort))
   # Check that all data and query are in the appropriate ranges
-  # Check that ranges are in order (or make them in order?)
-  # ................................
-  #
+  check_ranges <- function(i, x) {
+    return(any(x[, torus[i]] < ranges[i, 1] | x[, torus[i]] > ranges[i, 2]))
+  }
+  check_data <- vapply(1:length(torus), check_ranges, TRUE, x = data)
+  check_query <- vapply(1:length(torus), check_ranges, TRUE, x = query)
+  if (any(check_data)) {
+    stop("value(s) in 'data' are outside the corresponding range in 'ranges'")
+  }
+  if (any(check_query)) {
+    stop("value(s) in 'query' are outside the corresponding range in 'ranges'")
+  }
+  # Check method
   if (!(method %in% 1:2)) {
     stop("method must be equal to 1 or 2")
   }
