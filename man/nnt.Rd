@@ -60,12 +60,19 @@ on a torus.
 If \code{method = 1} then the data are partially replicated, arranged
   around the original data in a way that wraps the variables in \code{torus} on their respective
   ranges in \code{ranges}.  Then \code{fn} is called using this replicated
-  dataset as the argument \code{data}.  If \code{method = 2} then the
+  dataset as the argument \code{data}.  If \code{k} is large and/or
+  \code{data} is a sparse dataset then it is possible that a single
+  observation contributes more than once to a set of nearest neighbours,
+  which is incorrect. If this occurs then \code{nnt} uses method 2 to
+  correct the offending rows in \code{nn.idx} and \code{nn.dists} in the
+  returned list object.
+
+  If \code{method = 2} then the
   following approach is used for the point in each row in \code{query}.
   The data indexed by \code{torus} are shifted (and wrapped) so that the
   point is located at the respective midpoints of \code{ranges}.
-  This is only be an efficient approach if the number of points in
-  \code{query} are is small.
+  Method 2 is efficient only if the number of points in \code{query} is
+  small.
 
   If \code{torus} is missing then \code{fn} is called using
   \code{fn(data = data, query = query, k = k, ...)}, so that a call to
@@ -73,7 +80,7 @@ If \code{method = 1} then the data are partially replicated, arranged
 }
 \examples{
 set.seed(20092019)
-# Example from the RANN:nn2 documentation
+# 2D example from the RANN:nn2 documentation
 x1 <- runif(100, 0, 2 * pi)
 x2 <- runif(100, 0, 3)
 DATA <- data.frame(x1, x2)
@@ -91,12 +98,28 @@ query2 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
 res2 <- nnt(DATA, query2, k = 8, torus = 1:2, ranges = ranges2)
 plot(res2)
 
-n <- 100
-pjn <- cbind(runif(n, 0, 2), runif(n, 0, 1))
-ranges <- rbind(c(0, 2), c(0, 1))
-edge <- rbind(c(1.0, 0.5), c(0.1, 0.1))
-res <- nnt(pjn, edge, torus = 1:2, ranges = ranges, method = 2)
-plot(res, pch = 16)
+# 1D example
+ranges <- c(0, 2 * pi)
+query <- c(4, 0.1)
+res <- nnt(x1, query, torus = 1, ranges = ranges, method = 1)
+plot(res)
+}
+\references{
+Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
+  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
+  Metric. R package version 2.6.1.
+  \url{https://CRAN.R-project.org/package=RANN}
+
+Arya, S., Mount, D., Kemp, S. E., Jefferis, G. and Muller,
+  K. (2018)  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using
+  L1 Metric. R package version 2.5.2.
+  \url{https://CRAN.R-project.org/package=RANN.L1}
+
+Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
+  Comparison of nearest-neighbor-search strategies and implementations for
+  efficient shape registration. \emph{Journal of Software Engineering for
+  Robotics (JOSER)}, \strong{3}(1), 2-12
+  \url{https://CRAN.R-project.org/package=nabor}
 }
 \seealso{
 \code{\link[RANN:nn2]{RANN::nn2}},

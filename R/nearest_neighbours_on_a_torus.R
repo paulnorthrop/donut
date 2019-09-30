@@ -32,12 +32,19 @@
 #'   If \code{method = 1} then the data are partially replicated, arranged
 #'   around the original data in a way that wraps the variables in \code{torus} on their respective
 #'   ranges in \code{ranges}.  Then \code{fn} is called using this replicated
-#'   dataset as the argument \code{data}.  If \code{method = 2} then the
+#'   dataset as the argument \code{data}.  If \code{k} is large and/or
+#'   \code{data} is a sparse dataset then it is possible that a single
+#'   observation contributes more than once to a set of nearest neighbours,
+#'   which is incorrect. If this occurs then \code{nnt} uses method 2 to
+#'   correct the offending rows in \code{nn.idx} and \code{nn.dists} in the
+#'   returned list object.
+#'
+#'   If \code{method = 2} then the
 #'   following approach is used for the point in each row in \code{query}.
 #'   The data indexed by \code{torus} are shifted (and wrapped) so that the
 #'   point is located at the respective midpoints of \code{ranges}.
-#'   This is only be an efficient approach if the number of points in
-#'   \code{query} are is small.
+#'   Method 2 is efficient only if the number of points in \code{query} is
+#'   small.
 #'
 #'   If \code{torus} is missing then \code{fn} is called using
 #'   \code{fn(data = data, query = query, k = k, ...)}, so that a call to
@@ -56,6 +63,19 @@
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
 #'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
+#' @references Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
+#'   RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
+#'   Metric. R package version 2.6.1.
+#'   \url{https://CRAN.R-project.org/package=RANN}
+#' @references Arya, S., Mount, D., Kemp, S. E., Jefferis, G. and Muller,
+#'   K. (2018)  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using
+#'   L1 Metric. R package version 2.5.2.
+#'   \url{https://CRAN.R-project.org/package=RANN.L1}
+#' @references Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
+#'   Comparison of nearest-neighbor-search strategies and implementations for
+#'   efficient shape registration. \emph{Journal of Software Engineering for
+#'   Robotics (JOSER)}, \strong{3}(1), 2-12
+#'   \url{https://CRAN.R-project.org/package=nabor}
 #' @examples
 #' set.seed(20092019)
 #' # 2D example from the RANN:nn2 documentation
