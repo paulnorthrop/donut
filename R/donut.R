@@ -4,11 +4,14 @@
 #' adding the option to wrap certain variables on a torus.  The user chooses
 #' the algorithm to use to find the nearest neighbours.
 #'
-#' @details The main function is \code{\link{nnt}}.
+#' @details The function \code{\link{nnt}} performs the nearest neighbour
+#'   search.  There is also a rudimentary plot method: \code{\link{plot.nnt}}.
 #'
-#'   \code{\link[RANN]{RANN-package}}
-#'   \code{\link[RANN.L1]{RANN.L1-package}}
-#'   \code{\link[nabor]{nabor-package}}
+#'   The default algorithm is that provided by the function
+#'   \code{\link[RANN]{nn2}} in the \code{\link[RANN]{RANN-package}}.
+#'   Other possibilities are the \code{\link[RANN.L1]{nn2}} function in the
+#'   \code{\link[RANN.L1]{RANN.L1-package}} and the \code{\link[nabor]{knn}}
+#'   function in the \code{\link[nabor]{nabor-package}}
 #'
 #'   See \code{vignette("donut-vignette", package = "donut")} for an
 #'   overview of the package.
@@ -27,6 +30,8 @@
 #'   \url{https://CRAN.R-project.org/package=nabor}
 #' @seealso \code{\link{nnt}} for nearest neighbour with some variables
 #'   wrapped on a torus.
+#' @seealso \code{\link{plot.nnt}} plot method for objects returned from
+#'   \code{\link{nnt}} (1 and 2 dimensional data only).
 #' @docType package
 #' @name donut
 #' @import methods
