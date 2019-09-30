@@ -125,8 +125,6 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
   # Check that all data and query are in the appropriate ranges
   # Check that ranges are in order (or make them in order?)
   # ................................
-  # We transform the data in data and query, columns in torus
-  # Repeat for each row in query
   #
   if (!(method %in% 1:2)) {
     stop("method must be equal to 1 or 2")
@@ -185,8 +183,8 @@ plot.nnt <- function(x, ...) {
   if (is.null(colnames(x$data))) {
     colnames(x$data) <- paste0("X", 1:ncol(x$data))
   }
-  my_plot <- function(x, ..., pch, lwd, col) {
-    graphics::plot(x, ..., lwd = 1, col = "black")
+  my_plot <- function(x, ..., pch, lwd, col, xlim = my_xlim, ylim = my_ylim) {
+    graphics::plot(x, ..., lwd = 1, col = "black", xlim = xlim, ylim = ylim)
   }
   my_points <- function(x, ..., pch = 16, col = "red", lwd) {
     graphics::points(x, ..., pch = pch, col = col, lwd = 1)
@@ -196,7 +194,16 @@ plot.nnt <- function(x, ...) {
   if (is.null(user_args$col)) {
     user_args$col <- 1 + 1:nquery
   }
+  my_xlim <- my_ylim <- NULL
   if (ncov == 2) {
+    if (!is.null(x$torus)) {
+      if (1 %in% x$torus) {
+        my_xlim <- x$ranges[1, ]
+      }
+      if (2 %in% x$torus) {
+        my_ylim <- x$ranges[2, ]
+      }
+    }
     my_plot(x$data, ...)
     for (i in 1:nquery) {
       i_user_args <- user_args
@@ -208,6 +215,9 @@ plot.nnt <- function(x, ...) {
     for_points <- list(x = x$query, col = user_args$col, pch = "x")
     do.call(graphics::points, for_points)
   } else {
+    if (!is.null(x$torus)) {
+      my_xlim <- x$ranges
+    }
     plot_data <- cbind(x$data, index = 1:nrow(x$data))
     my_plot(plot_data, ...)
     graphics::abline(v = x$query, col = user_args$col)
