@@ -4,7 +4,7 @@ Version: 1.0.0.9000
 Date: 2019-09-29
 Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
   role = c("aut", "cre", "cph"))
-Description: Finds the k nearest neighbours of specified points in a dataset, 
+Description: Finds the k nearest neighbours in a dataset of specified points, 
   adding the option to wrap certain variables on a torus.  The user chooses
   the algorithm to use to find the nearest neighbours. Three such algorithms,
   provided by the packages 'RANN' <https://cran.r-project.org/package=RANN>, 
