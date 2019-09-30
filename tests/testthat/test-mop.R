@@ -31,14 +31,14 @@ if (got_RANN) {
 
   # Call nnt() with a ranges that is not consistent with torus
   test_that("nnt: ranges inconsistent with torus", {
-    testthat::expect_error(nnt(x, x, torus = 1:2, ranges = c(0, 1),
+    testthat::expect_error(nnt(x, x, torus = 1:2, ranges = c(0, 2 * pi),
                                method = 1))
   })
 
   # Call nnt() with an inappropriate value of method
   test_that("nnt: method inappropriate", {
     the_error <- "method must be equal to 1 or 2"
-    testthat::expect_error(nnt(x, x, torus = 1, ranges = c(0, 1),
+    testthat::expect_error(nnt(x, x, torus = 1, ranges = c(0, 2 * pi),
                                method = 3), the_error)
   })
 
@@ -46,5 +46,16 @@ if (got_RANN) {
   test_that("plot.nnt: inappropriate object", {
     the_error <- "use only with \"donut\" objects"
     testthat::expect_error(plot.nnt(x), the_error)
+  })
+
+  # Call nnt() with data that are outside a range in ranges
+  test_that("nnt: data out of range", {
+    testthat::expect_error(nnt(x, x, torus = 1, ranges = c(0, 1)))
+  })
+
+  # Call nnt() with data that are outside a range in ranges
+  query <- 7
+  test_that("nnt: data out of range", {
+    testthat::expect_error(nnt(x, query, torus = 1, ranges = c(0, 2 * pi)))
   })
 }
