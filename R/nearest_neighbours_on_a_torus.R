@@ -1,6 +1,6 @@
 # ================================== nnt ==================================== #
 
-#' Nearest Neighbour Search
+#' Nearest Neighbour Search on a Torus
 #'
 #' Uses a user-supplied function to find the \code{k} nearest neighbours of
 #' specified points in a dataset, adding the option to wrap certain variables
@@ -17,8 +17,9 @@
 #'   The syntax of this function must be \code{fn(data, query, k, ...)}.
 #'   The default is \code{RANN::nn2}.  Other possibilities are
 #'   \code{RANN.L1:nn2} and \code{nabor::knn}.
-#' @param torus An integer vector with element in
-#'   \{1, ..., \code{ncol(data)}\}.
+#' @param torus An integer vector with element(s) in
+#'   \{1, ..., \code{ncol(data)}\}.  The corresponding variables are wrapped
+#'   on the corresponding range gives in \code{ranges}.
 #' @param ranges A \code{length(torus)} by \code{2} numeric matrix.
 #'   Row \code{i} gives the range of variation of the variable indexed by
 #'   \code{torus[i]}. \code{ranges[i, 1]} and \code{ranges[i, 2]}
@@ -57,7 +58,6 @@
 #'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
 #' @examples
 #' set.seed(20092019)
-#'
 #' # Example from the RANN:nn2 documentation
 #' x1 <- runif(100, 0, 2 * pi)
 #' x2 <- runif(100, 0, 3)
@@ -65,18 +65,16 @@
 #' nearest <- nnt(DATA, DATA)
 #'
 #' # Suppose that x1 should be wrapped
-#' ranges <- c(0, 2 * pi)
-#' nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
-#' edge <- matrix(c(2 * pi, 1.5), 1, 2)
-#' res <- nnt(DATA, edge, torus = 1, ranges = ranges)
-#' plot(res, pch = 16)
+#' ranges1 <- c(0, 2 * pi)
+#' query1 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
+#' res1 <- nnt(DATA, query1, k = 8, torus = 1, ranges = ranges1)
+#' plot(res1, ylim = c(0, 3))
 #'
 #' # Suppose that x1 and x2 should be wrapped
-#' ranges <- rbind(c(0, 2 * pi), c(0, 3))
-#' nearest <- nnt(DATA, DATA[1, ], torus = 1:2, ranges = ranges)
-#' edge <- rbind(c(2 * pi, 1.5), c(2 * pi, 3))
-#' res <- nnt(DATA, edge, torus = 1:2, ranges = ranges)
-#' plot(res, pch = 16)
+#' ranges2 <- rbind(c(0, 2 * pi), c(0, 3))
+#' query2 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
+#' res2 <- nnt(DATA, query2, k = 8, torus = 1:2, ranges = ranges2)
+#' plot(res2)
 #'
 #' n <- 100
 #' pjn <- cbind(runif(n, 0, 2), runif(n, 0, 1))
@@ -161,7 +159,8 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
 #'   nearest neighbours of each point are colour-coded.
 #'
 #'   Colours of the lines/crosses and nearest neighbour points can be set sing an
-#'   argument \code{col}.
+#'   argument \code{col}.  If a variable is wrapped then the default plotting
+#'   limits are set using the corresponding values in \code{x$ranges}.
 #' @return Nothing is returned.
 #' @seealso \code{\link{nnt}} for nearest neighbour with some variables
 #'   wrapped on a torus.

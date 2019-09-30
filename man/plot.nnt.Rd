@@ -37,7 +37,8 @@ This function is only applicable in 1 or 2 dimensions, that is,
   nearest neighbours of each point are colour-coded.
 
   Colours of the lines/crosses and nearest neighbour points can be set sing an
-  argument \code{col}.
+  argument \code{col}.  If a variable is wrapped then the default plotting
+  limits are set using the corresponding values in \code{x$ranges}.
 }
 \section{Examples}{
 

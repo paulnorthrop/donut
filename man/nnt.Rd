@@ -2,7 +2,7 @@
 % Please edit documentation in R/nearest_neighbours_on_a_torus.R
 \name{nnt}
 \alias{nnt}
-\title{Nearest Neighbour Search}
+\title{Nearest Neighbour Search on a Torus}
 \usage{
 nnt(data, query = data, k = min(10, nrow(data)), fn = RANN::nn2,
   torus, ranges, method = 1, ...)
@@ -23,8 +23,9 @@ The syntax of this function must be \code{fn(data, query, k, ...)}.
 The default is \code{RANN::nn2}.  Other possibilities are
 \code{RANN.L1:nn2} and \code{nabor::knn}.}
 
-\item{torus}{An integer vector with element in
-\{1, ..., \code{ncol(data)}\}.}
+\item{torus}{An integer vector with element(s) in
+\{1, ..., \code{ncol(data)}\}.  The corresponding variables are wrapped
+on the corresponding range gives in \code{ranges}.}
 
 \item{ranges}{A \code{length(torus)} by \code{2} numeric matrix.
 Row \code{i} gives the range of variation of the variable indexed by
@@ -72,7 +73,6 @@ If \code{method = 1} then the data are partially replicated, arranged
 }
 \examples{
 set.seed(20092019)
-
 # Example from the RANN:nn2 documentation
 x1 <- runif(100, 0, 2 * pi)
 x2 <- runif(100, 0, 3)
@@ -80,18 +80,16 @@ DATA <- data.frame(x1, x2)
 nearest <- nnt(DATA, DATA)
 
 # Suppose that x1 should be wrapped
-ranges <- c(0, 2 * pi)
-nearest <- nnt(DATA, DATA, torus = 1, ranges = ranges)
-edge <- matrix(c(2 * pi, 1.5), 1, 2)
-res <- nnt(DATA, edge, torus = 1, ranges = ranges)
-plot(res, pch = 16)
+ranges1 <- c(0, 2 * pi)
+query1 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
+res1 <- nnt(DATA, query1, k = 8, torus = 1, ranges = ranges1)
+plot(res1, ylim = c(0, 3))
 
 # Suppose that x1 and x2 should be wrapped
-ranges <- rbind(c(0, 2 * pi), c(0, 3))
-nearest <- nnt(DATA, DATA[1, ], torus = 1:2, ranges = ranges)
-edge <- rbind(c(2 * pi, 1.5), c(2 * pi, 3))
-res <- nnt(DATA, edge, torus = 1:2, ranges = ranges)
-plot(res, pch = 16)
+ranges2 <- rbind(c(0, 2 * pi), c(0, 3))
+query2 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
+res2 <- nnt(DATA, query2, k = 8, torus = 1:2, ranges = ranges2)
+plot(res2)
 
 n <- 100
 pjn <- cbind(runif(n, 0, 2), runif(n, 0, 1))
