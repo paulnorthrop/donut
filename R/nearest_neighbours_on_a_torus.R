@@ -58,7 +58,7 @@
 #'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
 #' @examples
 #' set.seed(20092019)
-#' # Example from the RANN:nn2 documentation
+#' # 2D example from the RANN:nn2 documentation
 #' x1 <- runif(100, 0, 2 * pi)
 #' x2 <- runif(100, 0, 3)
 #' DATA <- data.frame(x1, x2)
@@ -76,12 +76,11 @@
 #' res2 <- nnt(DATA, query2, k = 8, torus = 1:2, ranges = ranges2)
 #' plot(res2)
 #'
-#' n <- 100
-#' pjn <- cbind(runif(n, 0, 2), runif(n, 0, 1))
-#' ranges <- rbind(c(0, 2), c(0, 1))
-#' edge <- rbind(c(1.0, 0.5), c(0.1, 0.1))
-#' res <- nnt(pjn, edge, torus = 1:2, ranges = ranges, method = 2)
-#' plot(res, pch = 16)
+#' # 1D example
+#' ranges <- c(0, 2 * pi)
+#' query <- c(4, 0.1)
+#' res <- nnt(x1, query, torus = 1, ranges = ranges, method = 1)
+#' plot(res)
 #' @export
 nnt <- function(data, query = data, k = min(10, nrow(data)),
                 fn = RANN::nn2, torus, ranges, method = 1, ...) {
