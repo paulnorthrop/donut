@@ -2,7 +2,7 @@
 % Please edit documentation in R/nearest_neighbours_on_a_torus.R
 \name{nnt}
 \alias{nnt}
-\title{Nearest Neighbour Search on a Torus}
+\title{Nearest Neighbour Search with Variables on a Torus}
 \usage{
 nnt(data, query = data, k = min(10, nrow(data)), fn = RANN::nn2,
   torus, ranges, method = 1, ...)

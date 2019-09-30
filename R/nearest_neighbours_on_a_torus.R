@@ -1,6 +1,6 @@
 # ================================== nnt ==================================== #
 
-#' Nearest Neighbour Search on a Torus
+#' Nearest Neighbour Search with Variables on a Torus
 #'
 #' Uses a user-supplied function to find the \code{k} nearest neighbours of
 #' specified points in a dataset, adding the option to wrap certain variables
