@@ -16,7 +16,7 @@ The function `nnt()` finds the *k* nearest neighbours of each of a set of points
 
 ### An example
 
-We use a simple example from the `RANN:nn2()` documentation. We suppose that both variable should be wrapped, on the ranges (0, 2*π*) and (0, 3) respectively. We choose the query points of interest to illustrate the wrapping of the variables. In the plot, the query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour.
+We use a simple example from the `RANN:nn2()` documentation. We suppose that both variable should be wrapped, on the ranges (0, 2*π*) and (0, 3) respectively. We choose the query points of interest to illustrate the wrapping of the variables. In the plot, query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour.
 
 ``` r
 library(donut)
@@ -30,8 +30,6 @@ query <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
 res2 <- nnt(DATA, query, k = 8, torus = 1:2, ranges = ranges)
 plot(res2)
 ```
-
-![](README-unnamed-chunk-2-1.png)
 
 ### Installation
 
