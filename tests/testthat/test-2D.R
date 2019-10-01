@@ -41,17 +41,60 @@ if (got_RANN) {
   n1n[5, ] <- order(temp)
   res1 <- nnt(x, x, torus = 1, ranges = c(0, 10), method = 1)
   res2 <- nnt(x, x, torus = 1, ranges = c(0, 10), method = 2)
-  test_that("Wrap on 1 variable: indices vs method 1", {
+  test_that("Wrap on variable 1: indices vs method 1", {
     testthat::expect_equal(res1$nn.idx, n1n)
   })
-  test_that("Wrap on 1 variable: indices vs method 2", {
+  test_that("Wrap on variable 1: indices vs method 2", {
     testthat::expect_equal(res2$nn.idx, n1n)
   })
-  test_that("Wrap on 1 variable: distances vs method 1", {
+  test_that("Wrap on variable 1: distances vs method 1", {
     testthat::expect_equal(res1$nn.dists, n1d)
   })
-  test_that("Wrap on 1 variable: distances vs method 2", {
+  test_that("Wrap on variable 1: distances vs method 2", {
     testthat::expect_equal(res2$nn.dists, n1d)
+  })
+
+  # Only wrap on variable 2
+  n2d <- n2n <- matrix(NA, 5, 5)
+  temp <- apply(cbind(x1, x2, x3, x4, x5), 2, dfn, y = x1)
+  n2d[1, ] <- sort(temp)
+  n2n[1, ] <- order(temp)
+  x3d <- c(8, -1)
+  x5d <- c(1, 0)
+  temp <- apply(cbind(x1, x2, x3d, x4, x5d), 2, dfn, y = x2)
+  n2d[2, ] <- sort(temp)
+  n2n[2, ] <- order(temp)
+  x1 <- c(5, 5)
+  x2 <- c(9, 3)
+  x3 <- c(8, 9)
+  x4 <- c(0, 2)
+  x5 <- c(1, 10)
+  x2d <- c(9, 13)
+  x4d <- c(0, 12)
+  temp <- apply(cbind(x1, x2d, x3, x4d, x5), 2, dfn, y = x3)
+  n2d[3, ] <- sort(temp)
+  n2n[3, ] <- order(temp)
+  x3d <- c(8, -1)
+  x5d <- c(1, 0)
+  temp <- apply(cbind(x1, x2, x3d, x4, x5d), 2, dfn, y = x4)
+  n2d[4, ] <- sort(temp)
+  n2n[4, ] <- order(temp)
+  temp <- apply(cbind(x1, x2d, x3, x4d, x5), 2, dfn, y = x5)
+  n2d[5, ] <- sort(temp)
+  n2n[5, ] <- order(temp)
+  res1 <- nnt(x, x, torus = 2, ranges = c(0, 10), method = 1)
+  res2 <- nnt(x, x, torus = 2, ranges = c(0, 10), method = 2)
+  test_that("Wrap on variable 2: indices vs method 1", {
+    testthat::expect_equal(res1$nn.idx, n2n)
+  })
+  test_that("Wrap on variable 2: indices vs method 2", {
+    testthat::expect_equal(res2$nn.idx, n2n)
+  })
+  test_that("Wrap on variable 2: distances vs method 1", {
+    testthat::expect_equal(res1$nn.dists, n2d)
+  })
+  test_that("Wrap on variable 2: distances vs method 2", {
+    testthat::expect_equal(res2$nn.dists, n2d)
   })
 }
 
