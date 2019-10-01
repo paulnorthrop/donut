@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -30,7 +30,7 @@ The function `nnt()` finds the $k$ nearest neighbours of each of a set of points
 
 We use a simple example from the `RANN:nn2()` documentation.  We suppose that both variable should be wrapped, on the ranges $(0, 2\pi)$ and $(0, 3)$ respectively.  We choose the query points of interest to illustrate the wrapping of the variables.  In the plot, query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour.
 
-```{r, eval = FALSE}
+```{r example}
 library(donut)
 set.seed(20092019)
 x1 <- runif(100, 0, 2 * pi)

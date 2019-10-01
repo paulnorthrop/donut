@@ -31,6 +31,8 @@ res2 <- nnt(DATA, query, k = 8, torus = 1:2, ranges = ranges)
 plot(res2)
 ```
 
+![](man/figures/README-example-1.png)
+
 ### Installation
 
 To get the current released version from CRAN:
