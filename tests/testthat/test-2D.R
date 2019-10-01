@@ -14,9 +14,10 @@ if (got_RANN) {
   x4 <- c(0, 2)
   x5 <- c(1, 10)
   x <- rbind(x1, x2, x3, x4, x5)
-  plot(x, xlim = c(0, 10), ylim = c(0, 10))
+#  plot(x, xlim = c(0, 10), ylim = c(0, 10))
 
   dfn <- function(x, y) sqrt(sum((x - y) ^ 2))
+  # Only wrap on variable 1
   n1d <- n1n <- matrix(NA, 5, 5)
   temp <- apply(cbind(x1, x2, x3, x4, x5), 2, dfn, y = x1)
   n1d[1, ] <- sort(temp)
@@ -37,7 +38,6 @@ if (got_RANN) {
   temp <- apply(cbind(x1, x2d, x3d, x4, x5), 2, dfn, y = x5)
   n1d[5, ] <- sort(temp)
   n1n[5, ] <- order(temp)
-  # Only wrap on variable 1
   res1 <- nnt(x, x, torus = 1, ranges = c(0, 10), method = 1)
   res2 <- nnt(x, x, torus = 1, ranges = c(0, 10), method = 2)
   # call and method are different, but otherwise the results should be the same
