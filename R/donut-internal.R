@@ -66,8 +66,8 @@ method1_function <- function(data, query, k, torus, ranges, fn, ...) {
   # the rows in query for which this is true
   if (any(dups > 0)) {
     which_dup <- which(dups > 0)
-    res <- method2_function(data, query[which_dup, ], k, torus, ranges, fn,
-                            ...)
+    res <- method2_function(data, query[which_dup, , drop = FALSE], k, torus,
+                            ranges, fn, ...)
     nnres$nn.idx[which_dup, ] <- res$nn.idx
     nnres$nn.dists[which_dup, ] <- res$nn.dists
   }
