@@ -45,10 +45,10 @@ An object (a list) of class \code{c("nnt", "donut")} containing the
     nearest neighbour indices, i.e. the rows of \code{data}.}
   \item{nn.dists}{An \eqn{N} by \eqn{d} numeric matrix of the \code{k}
     nearest neighbour distances.}
-  \item{data, query, k}{The input arguments \code{data}, \code{query} and
-    \code{k}.}
-  \item{fn, torus, ranges, method}{The input arguments \code{fn},
-    \code{torus}, \code{ranges} and \code{method}.}
+  \item{data, query, k, fn}{The arguments \code{data}, \code{query},
+    \code{k} and \code{fn} (in fact \code{substitute(fn)}).}
+  \item{torus, ranges, method}{If \code{torus} is supplied, the
+    arguments \code{torus}, \code{ranges} and \code{method}.}
   \item{call}{The call to \code{spm}.}
 }
 \description{
