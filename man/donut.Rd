@@ -6,7 +6,7 @@
 \alias{donut-package}
 \title{donut: Nearest Neighbour Search with Variables on a Torus}
 \description{
-Finds the \code{k} nearest neighbours of specified points in a dataset,
+Finds the \code{k} nearest neighbours in a dataset of specified points,
 adding the option to wrap certain variables on a torus.  The user chooses
 the algorithm to use to find the nearest neighbours.
 }
