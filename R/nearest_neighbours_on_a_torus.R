@@ -62,7 +62,7 @@
 #'   \item{call}{The call to \code{spm}.}
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
 #'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
-#'   \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
+#'   \code{\link[nabor:knn]{nabor::knn}}: nearest neighbour searches.
 #' @references Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
 #'   RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
 #'   Metric. R package version 2.6.1.

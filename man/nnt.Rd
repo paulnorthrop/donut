@@ -124,5 +124,5 @@ Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
 \seealso{
 \code{\link[RANN:nn2]{RANN::nn2}},
   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
-  \code{\link[nabor:knn]{nabor::knn}}: nearest neigbour searches.
+  \code{\link[nabor:knn]{nabor::knn}}: nearest neighbour searches.
 }
