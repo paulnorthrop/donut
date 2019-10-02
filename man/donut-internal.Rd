@@ -4,11 +4,14 @@
 \alias{donut-internal}
 \alias{method1_function}
 \alias{method2_function}
+\alias{fac3}
 \title{Internal donut functions}
 \usage{
 method1_function(data, query, k, torus, ranges, fn, ...)
 
 method2_function(data, query, k, torus, ranges, fn, ...)
+
+fac3(d)
 }
 \description{
 Internal donut functions

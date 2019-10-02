@@ -16,8 +16,8 @@ method1_function <- function(data, query, k, torus, ranges, fn, ...) {
   nt <- length(torus)
   # The respective ranges of each of these variables
   diffs <- apply(ranges, 1, diff)
-  # 3^nt factorial design.  Need nVars = 1 to deal with the nt = 1 case
-  x <- as.matrix(AlgDesign::gen.factorial(rep(3, nt), nVars = 1))
+  # 3^nt factorial design
+  x <- fac3(nt)
   # Multiply the -1s, 0s and 1s by the relevant values of diffs to surround the
   # original data by replicates in all directions
   x <- sweep(x, 2, diffs, "*")
@@ -123,4 +123,24 @@ method2_function <- function(data, query, k, torus, ranges, fn, ...) {
   nn.dists <- do.call(rbind, res[2, ])
   res <- list(nn.idx = nn.idx, nn.dists = nn.dists)
   return(res)
+}
+
+# ============================ 3^d factorial design ======================== #
+
+#' @keywords internal
+#' @rdname donut-internal
+fac3 <- function(d) {
+  # Creates a design matrix for a 3^d full factorial design
+  #
+  # Args:
+  #   d : a positive integer scalar
+  #
+  # Returns:
+  #   a 3^d by d integer matrix containing -1, 0, 1 for the levels of the d
+  #   factors.  The first column varies fastest, the second column second
+  #   fastest etc.
+  rep_fn <- function(x) {
+    rep(-1L:1L, times = 3L ^ x, each = 3L ^ (d - 1L - x))
+  }
+  return(vapply((d - 1L):0, rep_fn, numeric(3L ^ d)))
 }
