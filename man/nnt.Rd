@@ -151,4 +151,7 @@ Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
 \code{\link[RANN:nn2]{RANN::nn2}},
   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
   \code{\link[nabor:knn]{nabor::knn}}: nearest neighbour searches.
+
+\code{\link{plot.nnt}} plot method for objects returned from
+  \code{\link{nnt}} (1 and 2 dimensional data only).
 }

@@ -76,6 +76,8 @@
 #'   efficient shape registration. \emph{Journal of Software Engineering for
 #'   Robotics (JOSER)}, \strong{3}(1), 2-12
 #'   \url{https://CRAN.R-project.org/package=nabor}
+#' @seealso \code{\link{plot.nnt}} plot method for objects returned from
+#'   \code{\link{nnt}} (1 and 2 dimensional data only).
 #' @examples
 #' got_RANN <- requireNamespace("RANN", quietly = TRUE)
 #' got_RANN.L1 <- requireNamespace("RANN.L1", quietly = TRUE)
