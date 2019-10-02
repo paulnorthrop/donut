@@ -79,30 +79,56 @@ If \code{method = 1} then the data are partially replicated, arranged
   \code{nnt} is equivalent to a call to the function chosen by \code{fn}.
 }
 \examples{
+got_RANN <- requireNamespace("RANN", quietly = TRUE)
+got_RANN.L1 <- requireNamespace("RANN.L1", quietly = TRUE)
+got_nabor <- requireNamespace("nabor", quietly = TRUE)
+
 set.seed(20092019)
-# 2D example from the RANN:nn2 documentation
+# 2D example from the RANN:nn2 documentation (L2 metric)
 x1 <- runif(100, 0, 2 * pi)
 x2 <- runif(100, 0, 3)
 DATA <- data.frame(x1, x2)
-nearest <- nnt(DATA, DATA)
+if (got_RANN) {
+  nearest <- nnt(DATA, DATA)
+}
 
 # Suppose that x1 should be wrapped
 ranges1 <- c(0, 2 * pi)
 query1 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
-res1 <- nnt(DATA, query1, k = 8, torus = 1, ranges = ranges1)
-plot(res1, ylim = c(0, 3))
+if (got_RANN) {
+  res1 <- nnt(DATA, query1, k = 8, torus = 1, ranges = ranges1)
+  plot(res1, ylim = c(0, 3))
+}
 
 # Suppose that x1 and x2 should be wrapped
 ranges2 <- rbind(c(0, 2 * pi), c(0, 3))
 query2 <- rbind(c(6, 1.3), c(2 * pi, 3), c(3, 1.5), c(4, 0))
-res2 <- nnt(DATA, query2, k = 8, torus = 1:2, ranges = ranges2)
-plot(res2)
+if (got_RANN) {
+  res2 <- nnt(DATA, query2, k = 8, torus = 1:2, ranges = ranges2)
+  plot(res2)
+}
+
+# Use nabor::knn (L2 metric) instead of RANN::nn2
+if (got_nabor) {
+  res3 <- nnt(DATA, query2, k = 8, fn = nabor::knn, torus = 1:2,
+              ranges = ranges2)
+  plot(res3)
+}
+
+# Use RANN.L1::nn2 (L1 metric)
+if (got_RANN.L1) {
+  res4 <- nnt(DATA, query2, k = 8, fn = RANN.L1::nn2, torus = 1:2,
+              ranges = ranges2)
+  plot(res4)
+}
 
 # 1D example
 ranges <- c(0, 2 * pi)
 query <- c(4, 0.1)
-res <- nnt(x1, query, torus = 1, ranges = ranges, method = 1)
-plot(res)
+if (got_RANN) {
+  res <- nnt(x1, query, torus = 1, ranges = ranges, method = 1)
+  plot(res)
+}
 }
 \references{
 Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
