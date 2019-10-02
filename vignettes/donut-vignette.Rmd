@@ -33,7 +33,7 @@ x2 <- runif(100, 0, 3)
 DATA <- data.frame(x1, x2)
 ```
 
-First, we suppose that only `x1` should be wrapped, on the range $(0, 2\pi)$. We use a small number of query points of interest, chosen to illustate the wrapping.  By default `RANN::nn2()`, which uses the L2 metric, is used to find the nearest neighbours. In the plot, query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour.  The wrapping of the variable `x1` is apparent.
+First, we suppose that only `x1` should be wrapped, on the range $(0, 2\pi)$. We use a small number of query points of interest, chosen to illustrate the wrapping.  By default `RANN::nn2()`, which uses the L2 metric, is used to find the nearest neighbours. In the plot, query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour.  The wrapping of the variable `x1` is apparent.
 
 ```{r, echo = FALSE}
 got_RANN <- requireNamespace("RANN", quietly = TRUE)
