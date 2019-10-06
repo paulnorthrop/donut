@@ -10,8 +10,7 @@ Description: Finds the k nearest neighbours in a dataset of specified points,
   provided by the packages 'RANN' <https://cran.r-project.org/package=RANN>, 
   'RANN.L1' <https://cran.r-project.org/package=RANN.L1>, and 'nabor' 
   <https://cran.r-project.org/package=nabor>, are suggested.
-Imports: graphics,
-    methods
+Imports: graphics
 License: GPL (>= 2)
 LazyData: TRUE
 Encoding: UTF-8
