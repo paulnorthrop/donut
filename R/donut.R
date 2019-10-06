@@ -34,5 +34,4 @@
 #'   \code{\link{nnt}} (1 and 2 dimensional data only).
 #' @docType package
 #' @name donut
-#' @import methods
 NULL
