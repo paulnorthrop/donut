@@ -2,3 +2,4 @@
 
 S3method(plot,nnt)
 export(nnt)
+import(methods)
