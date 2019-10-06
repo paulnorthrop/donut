@@ -63,7 +63,7 @@ res2 <- nnt(DATA, query, k = 8, torus = 1:2, ranges = ranges)
 plot(res2)
 ```
 
-The argument `fn` can be used to choose the function that finds nearest neighbour distances.  Possibilities are `nabor::knn()` (L2 metric) and `RANN.L1:nn2()` (L1 metric).  Any function can be used provided that it has syntax consistent with a call `fn(data = data, query = query, k = k, ...)`.  The following code produce the same output as `fn = RANN::nn2()`.
+The argument `fn` can be used to choose the function that finds nearest neighbour distances.  Possibilities are `nabor::knn()` (L2 metric) and `RANN.L1:nn2()` (L1 metric).  Any function can be used provided that it has syntax consistent with a call `fn(data = data, query = query, k = k, ...)`.  The following code produce the same output as `fn = RANN::nn2`.
 
 ```{r, echo = FALSE}
 got_nabor <- requireNamespace("nabor", quietly = TRUE)
