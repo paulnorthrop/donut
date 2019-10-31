@@ -195,7 +195,7 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
 
 #' Plot diagnostics for an nnt object
 #'
-#' \code{plot} method for an objects of class \code{c("nnt")}.
+#' \code{plot} method for an object of class \code{c("nnt")}.
 #'
 #' @param x an object of class \code{c("nnt")}, a result of
 #'   a call to \code{\link{nnt}}.

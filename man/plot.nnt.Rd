@@ -17,7 +17,7 @@ or \code{\link[graphics]{points}}.}
 Nothing is returned.
 }
 \description{
-\code{plot} method for an objects of class \code{c("nnt")}.
+\code{plot} method for an object of class \code{c("nnt")}.
 }
 \details{
 This function is only applicable in 1 or 2 dimensions, that is,
