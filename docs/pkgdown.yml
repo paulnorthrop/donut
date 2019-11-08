@@ -1,0 +1,6 @@
+pandoc: 1.19.2.1
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  donut-vignette: donut-vignette.html
+
