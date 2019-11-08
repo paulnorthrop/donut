@@ -6,3 +6,17 @@ development:
 template:
   params:
     bootswatch: paper
+
+reference:
+  - title: Package
+    desc: ~
+    contents:
+      - "donut"
+  - title: Nearest Neighbour Search
+    desc: ~
+    contents:
+      - "nnt"
+  - title: Plot method
+    desc: ~
+    contents:
+      - "plot.nnt"
