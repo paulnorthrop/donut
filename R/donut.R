@@ -9,9 +9,8 @@
 #'
 #'   The default algorithm is that provided by the function
 #'   \code{\link[RANN]{nn2}} in the \code{\link[RANN]{RANN-package}}.
-#'   Other possibilities are the \code{\link[RANN.L1]{nn2}} function in the
-#'   \code{\link[RANN.L1]{RANN.L1-package}} and the \code{\link[nabor]{knn}}
-#'   function in the \code{\link[nabor]{nabor-package}}
+#'   Another possibility is the \code{\link[nabor]{knn}} function in the
+#'   \code{\link[nabor]{nabor-package}}.
 #'
 #'   See \code{vignette("donut-vignette", package = "donut")} for an
 #'   overview of the package.
@@ -19,10 +18,6 @@
 #'   RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
 #'   Metric. R package version 2.6.1.
 #'   \url{https://CRAN.R-project.org/package=RANN}
-#' @references Arya, S., Mount, D., Kemp, S. E., Jefferis, G. and Muller,
-#'   K. (2018)  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using
-#'   L1 Metric. R package version 2.5.2.
-#'   \url{https://CRAN.R-project.org/package=RANN.L1}
 #' @references Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
 #'   Comparison of nearest-neighbor-search strategies and implementations for
 #'   efficient shape registration. \emph{Journal of Software Engineering for
