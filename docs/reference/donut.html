@@ -8,10 +8,12 @@
 
 <title>donut: Nearest Neighbour Search with Variables on a Torus — donut • donut</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -32,12 +34,13 @@
 
 
 
-<meta property="og:title" content="donut: Nearest Neighbour Search with Variables on a Torus — donut" />
 
+<meta property="og:title" content="donut: Nearest Neighbour Search with Variables on a Torus — donut" />
 <meta property="og:description" content="Finds the k nearest neighbours in a dataset of specified points,
 adding the option to wrap certain variables on a torus.  The user chooses
 the algorithm to use to find the nearest neighbours." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -68,7 +71,7 @@ the algorithm to use to find the nearest neighbours." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">donut</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -99,7 +102,6 @@ the algorithm to use to find the nearest neighbours." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/paulnorthrop/donut">
@@ -126,61 +128,49 @@ the algorithm to use to find the nearest neighbours." />
     </div>
 
     <div class="ref-description">
-    
     <p>Finds the <code>k</code> nearest neighbours in a dataset of specified points,
 adding the option to wrap certain variables on a torus.  The user chooses
 the algorithm to use to find the nearest neighbours.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function <code><a href='nnt.html'>nnt</a></code> performs the nearest neighbour
   search.  There is also a rudimentary plot method: <code><a href='plot.nnt.html'>plot.nnt</a></code>.</p>
 <p>The default algorithm is that provided by the function
   <code><a href='https://rdrr.io/pkg/RANN/man/nn2.html'>nn2</a></code> in the <code><a href='https://rdrr.io/pkg/RANN/man/RANN-package.html'>RANN-package</a></code>.
-  Other possibilities are the <code><a href='https://rdrr.io/pkg/RANN.L1/man/nn2.html'>nn2</a></code> function in the
-  <code><a href='https://rdrr.io/pkg/RANN.L1/man/RANN.L1-package.html'>RANN.L1-package</a></code> and the <code><a href='https://rdrr.io/pkg/nabor/man/knn.html'>knn</a></code>
-  function in the <code><a href='https://rdrr.io/pkg/nabor/man/nabor-package.html'>nabor-package</a></code></p>
+  Another possibility is the <code><a href='https://rdrr.io/pkg/nabor/man/knn.html'>knn</a></code> function in the
+  <code><a href='https://rdrr.io/pkg/nabor/man/nabor-package.html'>nabor-package</a></code>.</p>
 <p>See <code><a href='../articles/donut-vignette.html'>vignette("donut-vignette", package = "donut")</a></code> for an
   overview of the package.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
   RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
   Metric. R package version 2.6.1.
   <a href='https://CRAN.R-project.org/package=RANN'>https://CRAN.R-project.org/package=RANN</a></p>
-<p>Arya, S., Mount, D., Kemp, S. E., Jefferis, G. and Muller,
-  K. (2018)  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using
-  L1 Metric. R package version 2.5.2.
-  <a href='https://CRAN.R-project.org/package=RANN.L1'>https://CRAN.R-project.org/package=RANN.L1</a></p>
 <p>Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
   Comparison of nearest-neighbor-search strategies and implementations for
   efficient shape registration. <em>Journal of Software Engineering for
   Robotics (JOSER)</em>, <strong>3</strong>(1), 2-12
   <a href='https://CRAN.R-project.org/package=nabor'>https://CRAN.R-project.org/package=nabor</a></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='nnt.html'>nnt</a></code> for nearest neighbour with some variables
   wrapped on a torus.</p>
 <p><code><a href='plot.nnt.html'>plot.nnt</a></code> plot method for objects returned from
   <code><a href='nnt.html'>nnt</a></code> (1 and 2 dimensional data only).</p></div>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">donut</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <h1>An overview of donut</h1>
                         <h4 class="author">Paul Northrop</h4>
             
-            <h4 class="date">2019-11-08</h4>
+            <h4 class="date">2020-02-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paulnorthrop/donut/blob/master/vignettes/donut-vignette.Rmd"><code>vignettes/donut-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>donut-vignette.Rmd</code></div>
@@ -97,7 +97,7 @@
 <div id="nearest-neighbour-search-with-variables-on-a-torus" class="section level2">
 <h2 class="hasAnchor">
 <a href="#nearest-neighbour-search-with-variables-on-a-torus" class="anchor"></a>Nearest Neighbour Search with Variables on a Torus</h2>
-<p>A non-parametric method for classification or regression involves making inferences locally using the <span class="math inline">\(k\)</span> observations closest to a point of interest, based on some metric, such as L2 or L1. There are several R packages, such as <strong>RANN</strong> <span class="citation">(Arya et al. 2019)</span> <strong>RANN.L1</strong> <span class="citation">(Arya et al. 2018)</span> and <strong>nabor</strong> <span class="citation">(Elseberg et al. 2012)</span>, that find <span class="math inline">\(k\)</span> nearest neighbours. The <strong>donut</strong> package considers the situation where one or more of the variables in the dataset is periodic on a finite interval. For example, direction is periodic on the interval <span class="math inline">\((0, 360)\)</span> degrees. In the small dataset <span class="math inline">\(\{10, 90, 350\}\)</span> degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.</p>
+<p>A non-parametric method for classification or regression involves making inferences locally using the <span class="math inline">\(k\)</span> observations closest to a point of interest, based on some metric, such as L2 or L1. There are several R packages, such as <strong>RANN</strong> <span class="citation">(Arya et al. 2019)</span> and <strong>nabor</strong> <span class="citation">(Elseberg et al. 2012)</span>, that find <span class="math inline">\(k\)</span> nearest neighbours. The <strong>donut</strong> package considers the situation where one or more of the variables in the dataset is periodic on a finite interval. For example, direction is periodic on the interval <span class="math inline">\((0, 360)\)</span> degrees. In the small dataset <span class="math inline">\(\{10, 90, 350\}\)</span> degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.</p>
 <p>The function <code><a href="../reference/nnt.html">nnt()</a></code> finds the <span class="math inline">\(k\)</span> nearest neighbours of each of a set of points of interest, wrapping periodic variables on a torus so that this periodicity is reflected. The user chooses the function to use to find the nearest neighbours. The nearest neighbour functions from the aforementioned packages are used as examples.</p>
 <div id="an-example" class="section level3">
 <h3 class="hasAnchor">
@@ -115,18 +115,18 @@ query1 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r
 res1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nnt.html">nnt</a></span>(DATA, query1, <span class="dt">k =</span> <span class="dv">8</span>, <span class="dt">torus =</span> <span class="dv">1</span>, <span class="dt">ranges =</span> ranges1)
 <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(res1, <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>))</code></pre></div>
 <p><img src="donut-vignette_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-<p>The object returned from <code><a href="../reference/nnt.html">nnt()</a></code> is a list including the same components that are returned from <code>RANN::nn()</code>, <code><a href="https://rdrr.io/pkg/RANN/man/nn2.html">RANN::nn2()</a></code> and <code><a href="https://rdrr.io/pkg/nabor/man/knn.html">nabor::knn()</a></code>, that is, matrices containing the nearest neighbour distances (<code>nn.dists</code>) and the corresponding indices in <code>data</code> (<code>nn.idx</code>). The <span class="math inline">\(i\)</span>th row relates to the <span class="math inline">\(i\)</span>th query point, the <span class="math inline">\(i\)</span>th row of <code>query</code>.</p>
+<p>The object returned from <code><a href="../reference/nnt.html">nnt()</a></code> is a list including the same components that are returned from <code><a href="https://rdrr.io/pkg/RANN/man/nn2.html">RANN::nn2()</a></code> and <code><a href="https://rdrr.io/pkg/nabor/man/knn.html">nabor::knn()</a></code>, that is, matrices containing the nearest neighbour distances (<code>nn.dists</code>) and the corresponding indices in <code>data</code> (<code>nn.idx</code>). The <span class="math inline">\(i\)</span>th row relates to the <span class="math inline">\(i\)</span>th query point, the <span class="math inline">\(i\)</span>th row of <code>query</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res1<span class="op">$</span>nn.dists
-<span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]</span>
-<span class="co">#&gt; [1,] 0.15704522 0.3501943 0.4310847 0.4397544 0.4685137 0.4767617</span>
-<span class="co">#&gt; [2,] 0.43932258 0.5283214 0.5716203 0.5815153 0.5939273 0.6234609</span>
-<span class="co">#&gt; [3,] 0.08775281 0.3553781 0.3918241 0.4196264 0.4209570 0.5525234</span>
-<span class="co">#&gt; [4,] 0.19200301 0.2799162 0.3053224 0.5576230 0.8803338 1.0122411</span>
-<span class="co">#&gt;           [,7]      [,8]</span>
-<span class="co">#&gt; [1,] 0.4819253 0.4993756</span>
-<span class="co">#&gt; [2,] 0.8834840 0.8933141</span>
-<span class="co">#&gt; [3,] 0.6148038 0.7221735</span>
-<span class="co">#&gt; [4,] 1.0694339 1.0731836</span>
+<span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]</span>
+<span class="co">#&gt; [1,] 0.15704522 0.3501943 0.4310847 0.4397544 0.4685137 0.4767617 0.4819253</span>
+<span class="co">#&gt; [2,] 0.43932258 0.5283214 0.5716203 0.5815153 0.5939273 0.6234609 0.8834840</span>
+<span class="co">#&gt; [3,] 0.08775281 0.3553781 0.3918241 0.4196264 0.4209570 0.5525234 0.6148038</span>
+<span class="co">#&gt; [4,] 0.19200301 0.2799162 0.3053224 0.5576230 0.8803338 1.0122411 1.0694339</span>
+<span class="co">#&gt;           [,8]</span>
+<span class="co">#&gt; [1,] 0.4993756</span>
+<span class="co">#&gt; [2,] 0.8933141</span>
+<span class="co">#&gt; [3,] 0.7221735</span>
+<span class="co">#&gt; [4,] 1.0731836</span>
 res1<span class="op">$</span>nn.idx
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
 <span class="co">#&gt; [1,]   54   18    8   27   19   30   31   28</span>
@@ -139,7 +139,7 @@ query &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/
 res2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nnt.html">nnt</a></span>(DATA, query, <span class="dt">k =</span> <span class="dv">8</span>, <span class="dt">torus =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">ranges =</span> ranges)
 <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(res2)</code></pre></div>
 <p><img src="donut-vignette_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
-<p>The argument <code>fn</code> can be used to choose the function that finds nearest neighbour distances. Possibilities are <code><a href="https://rdrr.io/pkg/nabor/man/knn.html">nabor::knn()</a></code> (L2 metric) and <code>RANN.L1:nn2()</code> (L1 metric). Any function can be used provided that it has syntax consistent with a call <code>fn(data = data, query = query, k = k, ...)</code>. The following code produce the same output as <code>fn = RANN::nn2</code>.</p>
+<p>The argument <code>fn</code> can be used to choose the function that finds nearest neighbour distances. For example, we could choose <code><a href="https://rdrr.io/pkg/nabor/man/knn.html">nabor::knn()</a></code>. Any function can be used provided that it has syntax consistent with a call <code>fn(data = data, query = query, k = k, ...)</code>. The following code produce the same output as <code>fn = RANN::nn2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(nabor)
 ranges &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>))
 query &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6</span>, <span class="fl">1.3</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi, <span class="dv">3</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="fl">1.5</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">0</span>))
@@ -157,9 +157,6 @@ res2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nnt.ht
 <div id="ref-RANN">
 <p>Arya, Sunil, David Mount, Samuel E. Kemp, and Gregory Jefferis. 2019. <em>RANN: Fast Nearest Neighbour Search (Wraps Ann Library) Using L2 Metric</em>. <a href="https://CRAN.R-project.org/package=RANN" class="uri">https://CRAN.R-project.org/package=RANN</a>.</p>
 </div>
-<div id="ref-RANN-L1">
-<p>Arya, Sunil, David Mount, Samuel E. Kemp, Gregory Jefferis, and Kirill Müller. 2018. <em>RANN.L1: Fast Nearest Neighbour Search (Wraps Ann Library) Using L1 Metric</em>. <a href="https://CRAN.R-project.org/package=RANN.L1" class="uri">https://CRAN.R-project.org/package=RANN.L1</a>.</p>
-</div>
 <div id="ref-nabor">
 <p>Elseberg, J., S. Magnenat, R. Siegwart, and A. Nüchter. 2012. “Comparison of Nearest-Neighbor-Search Strategies and Implementations for Efficient Shape Registration.” <em>Journal of Software Engineering for Robotics (JOSER)</em> 3 (1): 2–12. <a href="https://CRAN.R-project.org/package=nabor" class="uri">https://CRAN.R-project.org/package=nabor</a>.</p>
 </div>
@@ -168,6 +165,7 @@ res2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nnt.ht
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">donut</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@
 <div id="what-does-donut-do" class="section level3">
 <h3 class="hasAnchor">
 <a href="#what-does-donut-do" class="anchor"></a>What does donut do?</h3>
-<p>There are several R packages, such as <a href="https://cran.r-project.org/package=RANN">RANN</a>, <a href="https://cran.r-project.org/package=RANN.L1">RANN.L1</a> and <a href="https://cran.r-project.org/package=nabor">nabor</a> that find the <em>k</em> nearest neighbours in a dataset of specified query points, based on some metric, such as L2 or L1. The donut package considers the situation where one or more of the variables in the dataset is periodic on a finite interval. For example, direction is periodic on the interval (0, 360) degrees. In the small dataset {10, 90, 350} degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.</p>
+<p>There are several R packages, such as <a href="https://cran.r-project.org/package=RANN">RANN</a> and <a href="https://cran.r-project.org/package=nabor">nabor</a> that find the <em>k</em> nearest neighbours in a dataset of specified query points, based on some metric, such as L2 or L1. The donut package considers the situation where one or more of the variables in the dataset is periodic on a finite interval. For example, direction is periodic on the interval (0, 360) degrees. In the small dataset {10, 90, 350} degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.</p>
 <p>The function <code><a href="reference/nnt.html">nnt()</a></code> finds the <em>k</em> nearest neighbours of each of a set of points of interest, wrapping periodic variables on a torus so that this periodicity is reflected. The user chooses the function to use to find the nearest neighbours. The nearest neighbour functions from the aforementioned packages are used as examples.</p>
 </div>
 <div id="an-example" class="section level3">
