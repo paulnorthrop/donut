@@ -21,7 +21,6 @@ Suggests:
     knitr,
     nabor,
     RANN,
-    RANN.L1,
     rmarkdown,
     testthat (>= 2.1.0)
 VignetteBuilder: knitr
