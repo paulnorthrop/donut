@@ -1,6 +1,7 @@
-# donut 1.0.1.9000
+# donut 1.0.1
 
-## New features
+## Dependencies
 
-## Bug fixes and minor improvements
+* `donut` no longer depends on the `RANN.L1` package, which has been archived on CRAN.
+
 
