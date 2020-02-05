@@ -22,22 +22,6 @@ if (got_RANN) {
   })
 }
 
-# Check that RANN.L1 is available
-got_RANN.L1 <- requireNamespace("RANN.L1", quietly = TRUE)
-# No wrapping
-if (got_RANN.L1) {
-  # Use RANN.L1::nn2 directly
-  nearest <- RANN.L1::nn2(DATA,DATA)
-  # Use donut::nnt
-  res <- nnt(DATA, DATA, fn = RANN.L1::nn2)
-  test_that("RANN.L1: no wrapping, nn.idx", {
-    testthat::expect_equal(nearest$nn.idx, res$nn.idx)
-  })
-  test_that("RANN.L1: no wrapping, nn.dists", {
-    testthat::expect_equal(nearest$nn.idx, res$nn.idx)
-  })
-}
-
 # Check that nabor is available
 got_nabor <- requireNamespace("nabor", quietly = TRUE)
 # No wrapping
