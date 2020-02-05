@@ -18,7 +18,7 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 
 ## Nearest Neighbour Search with Variables on a Torus
 
-A non-parametric method for classification or regression involves making inferences locally using the $k$ observations closest to a point of interest, based on some metric, such as L2 or L1.  There are several R packages, such as **RANN** [@RANN] **RANN.L1** [@RANN.L1] and **nabor** [@nabor], that find $k$ nearest neighbours.  The **donut** package considers the situation where one or more of the variables in the dataset is periodic on a finite interval.  For example, direction is periodic on the interval $(0, 360)$ degrees.  In the small dataset $\{10, 90, 350\}$ degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.
+A non-parametric method for classification or regression involves making inferences locally using the $k$ observations closest to a point of interest, based on some metric, such as L2 or L1.  There are several R packages, such as **RANN** [@RANN] and **nabor** [@nabor], that find $k$ nearest neighbours.  The **donut** package considers the situation where one or more of the variables in the dataset is periodic on a finite interval.  For example, direction is periodic on the interval $(0, 360)$ degrees.  In the small dataset $\{10, 90, 350\}$ degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.
 
 The function `nnt()` finds the $k$ nearest neighbours of each of a set of points of interest, wrapping periodic variables on a torus so that this periodicity is reflected. The user chooses the function to use to find the nearest neighbours.  The nearest neighbour functions from the aforementioned packages are used as examples.
 
@@ -47,7 +47,7 @@ res1 <- nnt(DATA, query1, k = 8, torus = 1, ranges = ranges1)
 plot(res1, ylim = c(0, 3))
 ```
 
-The object returned from `nnt()` is a list including the same components that are returned from `RANN::nn()`, `RANN::nn2()` and `nabor::knn()`, that is, matrices containing the nearest neighbour distances (`nn.dists`) and the corresponding indices in `data` (`nn.idx`).  The $i$th row relates to the $i$th query point, the $i$th row of `query`. 
+The object returned from `nnt()` is a list including the same components that are returned from `RANN::nn2()` and `nabor::knn()`, that is, matrices containing the nearest neighbour distances (`nn.dists`) and the corresponding indices in `data` (`nn.idx`).  The $i$th row relates to the $i$th query point, the $i$th row of `query`. 
 
 ```{r, eval = got_RANN}
 res1$nn.dists
@@ -63,7 +63,7 @@ res2 <- nnt(DATA, query, k = 8, torus = 1:2, ranges = ranges)
 plot(res2)
 ```
 
-The argument `fn` can be used to choose the function that finds nearest neighbour distances.  Possibilities are `nabor::knn()` (L2 metric) and `RANN.L1:nn2()` (L1 metric).  Any function can be used provided that it has syntax consistent with a call `fn(data = data, query = query, k = k, ...)`.  The following code produce the same output as `fn = RANN::nn2`.
+The argument `fn` can be used to choose the function that finds nearest neighbour distances.  For example, we could choose `nabor::knn()`.  Any function can be used provided that it has syntax consistent with a call `fn(data = data, query = query, k = k, ...)`.  The following code produce the same output as `fn = RANN::nn2`.
 
 ```{r, echo = FALSE}
 got_nabor <- requireNamespace("nabor", quietly = TRUE)
