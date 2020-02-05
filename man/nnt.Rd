@@ -4,8 +4,16 @@
 \alias{nnt}
 \title{Nearest Neighbour Search with Variables on a Torus}
 \usage{
-nnt(data, query = data, k = min(10, nrow(data)), fn = RANN::nn2,
-  torus, ranges, method = 1, ...)
+nnt(
+  data,
+  query = data,
+  k = min(10, nrow(data)),
+  fn = RANN::nn2,
+  torus,
+  ranges,
+  method = 1,
+  ...
+)
 }
 \arguments{
 \item{data}{An \eqn{M} by \eqn{d} numeric matrix or data frame.  Each of the
