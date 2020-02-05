@@ -15,8 +15,8 @@
 #'   points in the rows of \code{query}, to find.
 #' @param fn The function with which to calculate the nearest neighbours.
 #'   The syntax of this function must be \code{fn(data, query, k, ...)}.
-#'   The default is \code{RANN::nn2}.  Other possibilities are
-#'   \code{RANN.L1:nn2} and \code{nabor::knn}.
+#'   The default is \code{RANN::nn2}.  Another possibility is
+#'   \code{nabor::knn}.
 #' @param torus An integer vector with element(s) in
 #'   \{1, ..., \code{ncol(data)}\}.  The corresponding variables are wrapped
 #'   on the corresponding range gives in \code{ranges}.
@@ -61,16 +61,11 @@
 #'     arguments \code{torus}, \code{ranges} and \code{method}.}
 #'   \item{call}{The call to \code{spm}.}
 #' @seealso \code{\link[RANN:nn2]{RANN::nn2}},
-#'   \code{\link[RANN.L1:nn2]{RANN.L1::nn2}},
 #'   \code{\link[nabor:knn]{nabor::knn}}: nearest neighbour searches.
 #' @references Arya, S., Mount, D., Kemp, S. E. and Jefferis, G. (2019)
 #'   RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using L2
 #'   Metric. R package version 2.6.1.
 #'   \url{https://CRAN.R-project.org/package=RANN}
-#' @references Arya, S., Mount, D., Kemp, S. E., Jefferis, G. and Muller,
-#'   K. (2018)  RANN: Fast Nearest Neighbour Search (Wraps ANN Library) Using
-#'   L1 Metric. R package version 2.5.2.
-#'   \url{https://CRAN.R-project.org/package=RANN.L1}
 #' @references Elseberg J., Magnenat S., Siegwart R., Nuchter, A. (2012)
 #'   Comparison of nearest-neighbor-search strategies and implementations for
 #'   efficient shape registration. \emph{Journal of Software Engineering for
@@ -80,7 +75,6 @@
 #'   \code{\link{nnt}} (1 and 2 dimensional data only).
 #' @examples
 #' got_RANN <- requireNamespace("RANN", quietly = TRUE)
-#' got_RANN.L1 <- requireNamespace("RANN.L1", quietly = TRUE)
 #' got_nabor <- requireNamespace("nabor", quietly = TRUE)
 #'
 #' set.seed(20092019)
@@ -113,13 +107,6 @@
 #'   res3 <- nnt(DATA, query2, k = 8, fn = nabor::knn, torus = 1:2,
 #'               ranges = ranges2)
 #'   plot(res3)
-#' }
-#'
-#' # Use RANN.L1::nn2 (L1 metric)
-#' if (got_RANN.L1) {
-#'   res4 <- nnt(DATA, query2, k = 8, fn = RANN.L1::nn2, torus = 1:2,
-#'               ranges = ranges2)
-#'   plot(res4)
 #' }
 #'
 #' # 1D example
