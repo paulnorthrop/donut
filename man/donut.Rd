@@ -3,6 +3,7 @@
 \docType{package}
 \name{donut}
 \alias{donut}
+\alias{donut-package}
 \title{donut: Nearest Neighbour Search with Variables on a Torus}
 \description{
 Finds the \code{k} nearest neighbours in a dataset of specified points,
