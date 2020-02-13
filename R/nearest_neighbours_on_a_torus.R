@@ -119,12 +119,6 @@
 #' @export
 nnt <- function(data, query = data, k = min(10, nrow(data)),
                 fn = RANN::nn2, torus, ranges, method = 1, ...) {
-  # Just t check something out
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    stop("the ggplot2 package is needed. Please install it.",
-         call. = FALSE)
-  }
-  #
   Call <- match.call(expand.dots = TRUE)
   # Make data and query matrices
   data <- as.matrix(data)
