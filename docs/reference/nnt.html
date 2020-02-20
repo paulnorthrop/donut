@@ -71,7 +71,7 @@ on a torus." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">donut</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
       </span>
     </div>
 
@@ -133,16 +133,8 @@ specified points in a dataset, adding the option to wrap certain variables
 on a torus.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nnt</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>query</span> <span class='kw'>=</span> <span class='no'>data</span>,
-  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>data</span>)),
-  <span class='kw'>fn</span> <span class='kw'>=</span> <span class='kw pkg'>RANN</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/RANN/man/nn2.html'>nn2</a></span>,
-  <span class='no'>torus</span>,
-  <span class='no'>ranges</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>nnt</span>(<span class='no'>data</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>data</span>)), <span class='kw'>fn</span> <span class='kw'>=</span> <span class='kw pkg'>RANN</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/RANN/man/nn2.html'>nn2</a></span>,
+  <span class='no'>torus</span>, <span class='no'>ranges</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
