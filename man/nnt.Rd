@@ -79,6 +79,7 @@ If \code{method = 1} then the data are partially replicated, arranged
   \code{nnt} is equivalent to a call to the function chosen by \code{fn}.
 }
 \examples{
+library(ggplot2)
 got_RANN <- requireNamespace("RANN", quietly = TRUE)
 got_nabor <- requireNamespace("nabor", quietly = TRUE)
 
