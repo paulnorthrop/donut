@@ -26,7 +26,6 @@ The function `nnt()` finds the $k$ nearest neighbours of each of a set of points
 
 We use a simple 2-dimensional example from the `RANN::nn2()` documentation.  For the purposes of illustrating `nnt()` we will suppose that one of more of the variables in periodic.  In one or two dimensions the plot method associated with `nnt()` can be used to show the effect of taking this periodicity into account.   
 ```{r}
-library(ggplot2)
 library(donut)
 set.seed(20092019)
 x1 <- runif(100, 0, 2 * pi)

@@ -74,7 +74,6 @@
 #' @seealso \code{\link{plot.nnt}} plot method for objects returned from
 #'   \code{\link{nnt}} (1 and 2 dimensional data only).
 #' @examples
-#' library(ggplot2)
 #' got_RANN <- requireNamespace("RANN", quietly = TRUE)
 #' got_nabor <- requireNamespace("nabor", quietly = TRUE)
 #'
