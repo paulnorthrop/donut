@@ -10,8 +10,9 @@
 \item{x}{an object of class \code{c("nnt")}, a result of
 a call to \code{\link{nnt}}.}
 
-\item{...}{Further arguments to be passed to \code{\link[graphics]{plot}},
-or \code{\link[graphics]{points}}.}
+\item{...}{Further arguments to be passed to
+\code{\link[graphics:plot.default]{plot}}, or
+\code{\link[graphics]{points}}.}
 }
 \value{
 Nothing is returned.

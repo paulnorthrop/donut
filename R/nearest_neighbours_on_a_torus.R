@@ -186,8 +186,9 @@ nnt <- function(data, query = data, k = min(10, nrow(data)),
 #'
 #' @param x an object of class \code{c("nnt")}, a result of
 #'   a call to \code{\link{nnt}}.
-#' @param ... Further arguments to be passed to \code{\link[graphics]{plot}},
-#'   or \code{\link[graphics]{points}}.
+#' @param ... Further arguments to be passed to
+#'   \code{\link[graphics:plot.default]{plot}}, or
+#'   \code{\link[graphics]{points}}.
 #' @details This function is only applicable in 1 or 2 dimensions, that is,
 #'   when \code{ncol(x$data)} = 1 or 2.  It provides a visual check that the
 #'   wrapping of variables is working as intended, in cases where the
