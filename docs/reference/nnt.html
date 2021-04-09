@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 <meta property="og:description" content="Uses a user-supplied function to find the k nearest neighbours of
 specified points in a dataset, adding the option to wrap certain variables
 on a torus." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@ on a torus." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -104,7 +107,7 @@ on a torus." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/paulnorthrop/donut">
+  <a href="http://github.com/paulnorthrop/donut/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -123,7 +126,7 @@ on a torus." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Nearest Neighbour Search with Variables on a Torus</h1>
-    <small class="dont-index">Source: <a href='https://github.com/paulnorthrop/donut/blob/master/R/nearest_neighbours_on_a_torus.R'><code>R/nearest_neighbours_on_a_torus.R</code></a></small>
+    <small class="dont-index">Source: <a href='http://github.com/paulnorthrop/donut/blob/master/R/nearest_neighbours_on_a_torus.R'><code>R/nearest_neighbours_on_a_torus.R</code></a></small>
     <div class="hidden name"><code>nnt.Rd</code></div>
     </div>
 
@@ -133,8 +136,16 @@ specified points in a dataset, adding the option to wrap certain variables
 on a torus.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nnt</span>(<span class='no'>data</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>data</span>)), <span class='kw'>fn</span> <span class='kw'>=</span> <span class='kw pkg'>RANN</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/RANN/man/nn2.html'>nn2</a></span>,
-  <span class='no'>torus</span>, <span class='no'>ranges</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>nnt</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>query</span> <span class='kw'>=</span> <span class='no'>data</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>data</span>)),
+  <span class='kw'>fn</span> <span class='kw'>=</span> <span class='kw pkg'>RANN</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/RANN/man/nn2.html'>nn2</a></span>,
+  <span class='no'>torus</span>,
+  <span class='no'>ranges</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,20 +268,20 @@ If <code><a href='https://rdrr.io/r/base/length.html'>length(torus)</a></code> =
 <span class='no'>query1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>, <span class='fl'>1.3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span> * <span class='no'>pi</span>, <span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>1.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0</span>))
 <span class='kw'>if</span> (<span class='no'>got_RANN</span>) {
   <span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'>nnt</span>(<span class='no'>DATA</span>, <span class='no'>query1</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>torus</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ranges</span> <span class='kw'>=</span> <span class='no'>ranges1</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res1</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>res1</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>))
 }</div><div class='img'><img src='nnt-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Suppose that x1 and x2 should be wrapped</span>
 <span class='no'>ranges2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span> * <span class='no'>pi</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>))
 <span class='no'>query2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>, <span class='fl'>1.3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span> * <span class='no'>pi</span>, <span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>1.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0</span>))
 <span class='kw'>if</span> (<span class='no'>got_RANN</span>) {
   <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>nnt</span>(<span class='no'>DATA</span>, <span class='no'>query2</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>torus</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>ranges</span> <span class='kw'>=</span> <span class='no'>ranges2</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res2</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>res2</span>)
 }</div><div class='img'><img src='nnt-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use nabor::knn (L2 metric) instead of RANN::nn2</span>
 <span class='kw'>if</span> (<span class='no'>got_nabor</span>) {
   <span class='no'>res3</span> <span class='kw'>&lt;-</span> <span class='fu'>nnt</span>(<span class='no'>DATA</span>, <span class='no'>query2</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>fn</span> <span class='kw'>=</span> <span class='kw pkg'>nabor</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/nabor/man/knn.html'>knn</a></span>, <span class='kw'>torus</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
               <span class='kw'>ranges</span> <span class='kw'>=</span> <span class='no'>ranges2</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res3</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>res3</span>)
 }
 
 <span class='co'># 1D example</span>
@@ -278,20 +289,13 @@ If <code><a href='https://rdrr.io/r/base/length.html'>length(torus)</a></code> =
 <span class='no'>query</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.1</span>)
 <span class='kw'>if</span> (<span class='no'>got_RANN</span>) {
   <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>nnt</span>(<span class='no'>x1</span>, <span class='no'>query</span>, <span class='kw'>torus</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ranges</span> <span class='kw'>=</span> <span class='no'>ranges</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>res</span>)
 }</div><div class='img'><img src='nnt-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -302,7 +306,7 @@ If <code><a href='https://rdrr.io/r/base/length.html'>length(torus)</a></code> =
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
