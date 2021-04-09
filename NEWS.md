@@ -1,5 +1,9 @@
 # donut 1.0.1.9000
 
+## Bug fixes and minor improvements
+
+* `LazyData: TRUE` has been removed from DESCRIPTION, because there is no data/ directory in donut.
+
 # donut 1.0.1
 
 ## Dependencies
