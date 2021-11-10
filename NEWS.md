@@ -1,4 +1,4 @@
-# donut 1.0.1.9000
+# donut 1.0.2
 
 ## Bug fixes and minor improvements
 
