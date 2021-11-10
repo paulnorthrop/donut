@@ -22,5 +22,5 @@ Suggests:
     rmarkdown,
     testthat (>= 2.1.0)
 VignetteBuilder: knitr
-URL: http://github.com/paulnorthrop/donut, https://paulnorthrop.github.io/donut/
-BugReports: http://github.com/paulnorthrop/donut/issues
+URL: https://github.com/paulnorthrop/donut, https://paulnorthrop.github.io/donut/
+BugReports: https://github.com/paulnorthrop/donut/issues
