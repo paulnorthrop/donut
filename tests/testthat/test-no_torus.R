@@ -1,4 +1,4 @@
-context("No torus")
+#context("No torus")
 
 set.seed(20092019)
 # Example from the RANN:nn2 documentation

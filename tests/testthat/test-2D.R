@@ -1,4 +1,4 @@
-context("2D check by hand")
+#context("2D check by hand")
 
 # Check that RANN is available
 got_RANN <- requireNamespace("RANN", quietly = TRUE)

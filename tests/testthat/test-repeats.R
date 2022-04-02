@@ -1,4 +1,4 @@
-context("Repeated indices are deleted")
+#context("Repeated indices are deleted")
 
 # Check that RANN is available
 got_RANN <- requireNamespace("RANN", quietly = TRUE)

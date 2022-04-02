@@ -1,4 +1,4 @@
-context("Plot method")
+#context("Plot method")
 
 # Check that RANN is available
 got_RANN <- requireNamespace("RANN", quietly = TRUE)

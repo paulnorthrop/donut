@@ -1,4 +1,4 @@
-context("Mop up")
+#context("Mop up")
 
 # Check that RANN is available
 got_RANN <- requireNamespace("RANN", quietly = TRUE)
