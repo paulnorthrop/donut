@@ -8,6 +8,10 @@ Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/donut?br
 [![Coverage
 Status](https://codecov.io/github/paulnorthrop/donut/coverage.svg?branch=master)](https://codecov.io/github/paulnorthrop/donut?branch=master)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/donut)](https://cran.r-project.org/package=donut)
+[![Downloads
+(monthly)](https://cranlogs.r-pkg.org/badges/donut?color=brightgreen)](https://cran.r-project.org/package=donut)
+[![Downloads
+(total)](https://cranlogs.r-pkg.org/badges/grand-total/donut?color=brightgreen)](https://cran.r-project.org/package=donut)
 
 ## Nearest Neighbour Search with Variables on a Torus
 

@@ -1,7 +1,7 @@
 pandoc: 2.14.0.3
-pkgdown: 1.6.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   donut-vignette: donut-vignette.html
-last_built: 2021-11-10T16:44Z
+last_built: 2022-04-11T21:54Z
 
