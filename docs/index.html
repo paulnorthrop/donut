@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">donut</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -84,31 +84,32 @@
 <div class="section level1">
 <div class="page-header"><h1 id="donut">donut<a class="anchor" aria-label="anchor" href="#donut"></a>
 </h1></div>
-
+<p><a href="https://ci.appveyor.com/project/paulnorthrop/donut" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/paulnorthrop/donut?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://github.com/paulnorthrop/donut/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/paulnorthrop/donut/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/github/paulnorthrop/donut?branch=master" class="external-link"><img src="https://codecov.io/github/paulnorthrop/donut/coverage.svg?branch=master" alt="Coverage Status"></a> <a href="https://cran.r-project.org/package=donut" class="external-link"><img src="https://www.r-pkg.org/badges/version/donut" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=donut" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/donut?color=brightgreen" alt="Downloads (monthly)"></a> <a href="https://cran.r-project.org/package=donut" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/donut?color=brightgreen" alt="Downloads (total)"></a></p>
 <div class="section level2">
 <h2 id="nearest-neighbour-search-with-variables-on-a-torus">Nearest Neighbour Search with Variables on a Torus<a class="anchor" aria-label="anchor" href="#nearest-neighbour-search-with-variables-on-a-torus"></a>
 </h2>
 <div class="section level3">
 <h3 id="what-does-donut-do">What does donut do?<a class="anchor" aria-label="anchor" href="#what-does-donut-do"></a>
 </h3>
-<p>There are several R packages, such as <a href="https://cran.r-project.org/package=RANN" class="external-link">RANN</a> and <a href="https://cran.r-project.org/package=nabor" class="external-link">nabor</a> that find the <em>k</em> nearest neighbours in a dataset of specified query points, based on some metric, such as L2 or L1. The donut package considers the situation where one or more of the variables in the dataset is periodic on a finite interval. For example, direction is periodic on the interval (0,360) degrees. In the small dataset {10, 90, 350} degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.</p>
-<p>The function <code><a href="reference/nnt.html">nnt()</a></code> finds the <em>k</em> nearest neighbours of each of a set of points of interest, wrapping periodic variables on a torus so that this periodicity is reflected. The user chooses the function to use to find the nearest neighbours. The nearest neighbour functions from the aforementioned packages are used as examples.</p>
+<p>There are several R packages, such as <a href="https://cran.r-project.org/package=RANN" class="external-link">RANN</a> and <a href="https://cran.r-project.org/package=nabor" class="external-link">nabor</a> that find the <span class="math inline"><em>k</em></span> nearest neighbours in a dataset of specified query points, based on some metric, such as L2 or L1. The donut package considers the situation where one or more of the variables in the dataset is periodic on a finite interval. For example, direction is periodic on the interval <span class="math inline">(0,360)</span> degrees. In the small dataset <span class="math inline">{10, 90, 350}</span> degrees 350 is closer to 10 than is 90: 10 and 350 are separated by 20 degrees, 10 and 90 by 80 degrees.</p>
+<p>The function <code><a href="reference/nnt.html">nnt()</a></code> finds the <span class="math inline"><em>k</em></span> nearest neighbours of each of a set of points of interest, wrapping periodic variables on a torus so that this periodicity is reflected. The user chooses the function to use to find the nearest neighbours. The nearest neighbour functions from the aforementioned packages are used as examples.</p>
 </div>
 <div class="section level3">
 <h3 id="an-example">An example<a class="anchor" aria-label="anchor" href="#an-example"></a>
 </h3>
-<p>We use a simple example from the <code>RANN:nn2()</code> documentation. We suppose that both variables should be wrapped, on the ranges (0,2<em>π</em>) and (0,3) respectively. We choose the query points of interest to illustrate the wrapping of the variables. In the plot, query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour. By default <code><a href="reference/nnt.html">nnt()</a></code> uses the function <code><a href="https://rdrr.io/pkg/RANN/man/nn2.html" class="external-link">RANN::nn2()</a></code> (based on the L2 metric) to find the nearest neighbours.</p>
+<p>We use a simple example from the <code>RANN:nn2()</code> documentation. We suppose that both variables should be wrapped, on the ranges <span class="math inline">(0,2<em>π</em>)</span> and <span class="math inline">(0,3)</span> respectively. We choose the query points of interest to illustrate the wrapping of the variables. In the plot, query points are indicated with colour-coded crosses and the 8 nearest neighbours of each point are shaded in the same colour. By default <code><a href="reference/nnt.html">nnt()</a></code> uses the function <code><a href="https://rdrr.io/pkg/RANN/man/nn2.html" class="external-link">RANN::nn2()</a></code> (based on the L2 metric) to find the nearest neighbours.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paulnorthrop/donut" class="external-link">donut</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20092019</span><span class="op">)</span>
-<span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span><span class="op">)</span>
-<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="va">DATA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span>
-<span class="va">ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">query</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">1.3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jefferis/RANN" class="external-link">RANN</a></span><span class="op">)</span>
-<span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/nnt.html">nnt</a></span><span class="op">(</span><span class="va">DATA</span>, <span class="va">query</span>, k <span class="op">=</span> <span class="fl">8</span>, torus <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, ranges <span class="op">=</span> <span class="va">ranges</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paulnorthrop/donut" class="external-link">donut</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20092019</span><span class="op">)</span></span>
+<span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span><span class="op">)</span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">DATA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span></span>
+<span><span class="va">ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">query</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">1.3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jefferis/RANN" class="external-link">RANN</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'RANN' was built under R version 4.2.3</span></span>
+<span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/nnt.html">nnt</a></span><span class="op">(</span><span class="va">DATA</span>, <span class="va">query</span>, k <span class="op">=</span> <span class="fl">8</span>, torus <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, ranges <span class="op">=</span> <span class="va">ranges</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png"><!-- --></p>
 </div>
 <div class="section level3">
@@ -116,7 +117,7 @@
 </h3>
 <p>To get the current released version from CRAN:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"donut"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"donut"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="vignette">Vignette<a class="anchor" aria-label="anchor" href="#vignette"></a>
@@ -159,16 +160,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://ci.appveyor.com/project/paulnorthrop/donut" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/paulnorthrop/donut?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/paulnorthrop/donut?branch=master" class="external-link"><img src="https://codecov.io/github/paulnorthrop/donut/coverage.svg?branch=master" alt="Coverage Status"></a></li>
-<li><a href="https://cran.r-project.org/package=donut" class="external-link"><img src="https://www.r-pkg.org/badges/version/donut" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://cran.r-project.org/package=donut" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/donut?color=brightgreen" alt="Downloads (monthly)"></a></li>
-<li><a href="https://cran.r-project.org/package=donut" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/donut?color=brightgreen" alt="Downloads (total)"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -181,7 +173,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
