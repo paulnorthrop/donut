@@ -12,3 +12,4 @@
 ^pkgdown$
 ^checks$
 ^\.github$
+^CRAN-SUBMISSION$
