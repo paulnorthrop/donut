@@ -1,6 +1,8 @@
-# donut 1.0.2.9000
+# donut 1.0.3
 
 ## Bug fixes and minor improvements
+
+* Create the help file for the package correctly, with alias donut-package.
 
 * Activated 3rd edition of the `testthat` package
 
