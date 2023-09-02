@@ -28,5 +28,4 @@
 #' @seealso \code{\link{plot.nnt}} plot method for objects returned from
 #'   \code{\link{nnt}} (1 and 2 dimensional data only).
 #' @docType package
-#' @name donut
-NULL
+"_PACKAGE"
